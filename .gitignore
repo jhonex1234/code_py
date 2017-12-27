@@ -1,0 +1,14 @@
+*.csv
+*.sql
+*.txt
+*.pdf
+*.png
+*.tif
+*.jpg
+*.odt
+*.ipynb_checkpoints
+*.doc
+*.zip
+*.npy
+watch.html
+
