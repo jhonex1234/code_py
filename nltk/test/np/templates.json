@@ -1,0 +1,23 @@
+[
+	{"label": "saludo", "state": "s1", "topic": "none", "length": [1], "message": "Como ha estado, cual es el motivo de su consulta?"}, 
+	{"label": "otro", "state": "s1", "topic": "none", "length": [0], "message": ""}, 
+	{"label": "fusion", "state": "s2", "topic": "fusion", "length": [1], "message": "Quiere saber el costo o el procedimiento para una fusi\u00f3n"}, 
+	{"label": "inscripcion", "state": "s2", "topic": "inscripcion", "length": [1], "message": "\u00bfLa inscripci\u00f3n de los libros que Usted quiere registrar es por primera vez, por continuidad o por perdida"}, 
+	{"label": "otro", "state": "s2", "topic": "otro", "length": [1], "message": "Disculpeme Se\u00f1or(a) [username], pero no entiendo su consulta. Podria, por favor, reformular su pregunta"}, 
+	{"label": "agente", "state": "s2", "topic": "agente", "length": [1], "message": "Permitame por favor, en un momento le brindo la informaci\u00f3n."}, 
+	{"label": "primera vez", "state": "s3", "topic": "primera vez", "length": [1], "message": "Quiere saber el costo o el procedimiento para la inscripci\u00f3n por primera vez"}, 
+	{"label": "continuidad", "state": "s3", "topic": "continuidad", "length": [1], "message": "Quiere saber el costo o el procedimiento para la inscripci\u00f3n por continuidad"}, 
+	{"label": "perdida", "state": "s3", "topic": "perdida", "length": [1], "message": "Quiere saber el costo o el procedimiento para la inscripci\u00f3n por perdida"}, 
+	{"label": "otro", "state": "s3", "topic": "otro", "length": [1], "message": "Disculpeme Se\u00f1or(a) [username], pero no entiendo su consulta. Podria, por favor, reformular su pregunta"}, 
+	{"label": "agente", "state": "s3", "topic": "agente", "length": [1], "message": "Permitame un momento, por favor, ya estamos trabajando en su consulta. "}, 
+	{"label": "costo", "state": "s4", "topic": "fusion", "length": [1], "message": "El costo de fusion es ...[newmessage]\u00bfDesea que le colabore en algo m\u00e1s?"}, 
+	{"label": "costo", "state": "s4", "topic": "primera vez", "length": [1], "message": "El tr\u00e1mite de primera vez tiene un costo de $12.800 por cada libro que desee registrar sin importar el n\u00famero de hojas.[newmessage]\u00bfDesea que le colabore en algo m\u00e1s?"}, 
+	{"label": "costo", "state": "s4", "topic": "continuidad", "length": [1], "message": "El tr\u00e1mite de continuidad tiene un costo de $12.800  por cada libro que desee registrar sin importar el n\u00famero de hojas.[newmessage]\u00bfEs clara la informaci\u00f3n? \u00bfDesea que le colabore en algo m\u00e1s?"}, 
+	{"label": "costo", "state": "s4", "topic": "perdida", "length": [1], "message": "El tr\u00e1mite de perdida tiene un costo de $12.800  por cada libro que desee registrar sin importar el n\u00famero de hojas.[newmessage]\u00bfDesea que le colabore en algo m\u00e1s?"}, 
+	{"label": "procedimiento", "state": "s4", "topic": "fusion", "length": [1], "message": "El procedimiento de fusion es ...\u00bfDesea que le colabore en algo m\u00e1s?"}, 
+	{"label": "procedimiento", "state": "s4", "topic": "primera vez", "length": [1], "message": "Para registrar libros por primera vez, debe presentar[newmessage]\u00bfDesea que le colabore en algo m\u00e1s?"}, 
+	{"label": "procedimiento", "state": "s4", "topic": "continuidad", "length": [1], "message": "Si el registro de libros es por continuidad, debe presentar ...[newmessage]\u00bfDesea que le colabore en algo m\u00e1s?"}, 
+	{"label": "procedimiento", "state": "s4", "topic": "perdida", "length": [1], "message": "Si el registro de sus libros es por p\u00e9rdida, debe presentar ... [newmessage]\u00bfDesea que le colabore en algo m\u00e1s?"}, 
+	{"label": "positivo", "state": "s5", "topic": "positivo", "length": [0], "message": ""}, 
+	{"label": "negativo", "state": "s5", "topic": "negativo", "length": [1], "message": "Se\u00f1or(a) [username], sus sue\u00f1os son nuestra empresa, gracias por utilizar el chat de la Camara de Comercio de Bogota, que tenga un buen dia."}
+]
