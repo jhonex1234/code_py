@@ -8,13 +8,15 @@ import pandas as pd
 import re
 from time import time
 from unicodedata import normalize
+from typeDataBase import TypeDataBase
 pd.set_option('display.max_colwidth',-1)
 
 
 class extractField():
 
-    def __init__(self,filelist):
+    def __init__(self,filelist,json_database):
         self.filelist = glob(filelist+'*.txt')
+        self.database = json_database
         
     def organizeDocs(self):
         letters = []
@@ -60,32 +62,49 @@ class extractField():
         while (nom_ar<=(len(letters)-1)):
             cleanText = re.sub('[^\w\s]', '', letters[letters.Name == letters['Name'][nom_ar]].CleanText.values[0])
             nom_ar=nom_ar+1
+
             search_result  = re.findall('\s*resuelve\s*articulo\s*(primero|1)\s*(\w*)', cleanText)
             # number sspd
-            val_sspd=set(re.findall('\s*sspd\s(\d{14})\s', cleanText))
+            val_sspd = set(re.findall('\s*sspd\s(\d{14})\s', cleanText))
             #date sspd
-            val_sspd_fe=set(re.findall('sspd\s*\d*\sfecha\s*(\d*\S*|\d)', cleanText))
+            val_sspd_fe = set(re.findall('sspd\s*\d*\sfecha\s*(\d*\S*|\d)', cleanText))
             #expedient
-            val_expedient=set(re.findall('\s(\d*\e)\s', cleanText))  
+            val_expedient = set(re.findall('\s(\d*\e)\s', cleanText))  
             #expedient father
-            val_expedient_father=set(re.findall('radicado\spadre\s(\d{14})\s', cleanText))
+            val_expedient_father = set(re.findall('radicado\spadre\s(\d{14})\s+|$', cleanText))
             #number solve of decision 
-            val_solve_decision=re.findall('\s*resuelve\s*articulo\s*(primero|1)\s*\w*\s*decision\s*(administrativa| )\s*(no|n0| )(\d*)\s', cleanText)
+            val_solve_decision = re.findall('\s*resuelve\s*articulo\s*(primero|1)\s*\w*\s*decision\s*(administrativa| )\s*(no|n0| )(\d*)\s+|$', cleanText)
             #date decision
-            val_decision_fe= re.findall('\s*resuelve\s*articulo\s*(primero|1)\s*\w*\s*decision\s*(administrativa| )\s*(no|n0| )\d*(\s*\d*\s\w*\s\d*\s\d*)', cleanText)
+            val_decision_fe = re.findall('\s*resuelve\s*articulo\s*(primero|1)\s*\w*\s*decision\s*(administrativa| )\s*(no|n0| )\d{7}(\s*\d*\s\w*\s\d*\s\d*)+|$', cleanText)
             # number_RE
-            val_number_re=set(re.findall('(no|n0| )\s*(re\d*)\s', cleanText)) 
+            val_number_re = set(re.findall('(no|n0| )\s*(re\d*)\s+|$', cleanText)) 
             # RE_date
-            val_re_fe=re.findall('(no|n0| )\s*re\d*\s(\d{2}\s\w*\s\d{4})',cleanText)
+            val_re_fe = re.findall('(no|n0| )\s*re\d*\s(\d{2}\s\w*\s\d{4})+|$',cleanText)
+ 
+            if list(val_number_re) != [('', '')]:
+                if list(val_number_re)[1][1] != '':
+                    val_number_re = list(val_number_re)[1][1]
+                elif list(val_number_re)[0][1] != '':
+                    val_number_re = list(val_number_re)[0][1]
+            else:
+                val_number_re = list(val_number_re)[0][0]
 
-
-            dc = {'resolucion':search_result,'sspd' : (val_sspd , val_sspd_fe),'expediente_padre' : val_expedient_father , 
-                  'num_decision':(val_solve_decision , val_decision_fe) , 'radicado_RE':(val_number_re , val_re_fe)} 
-
-     #save registry one to one
+            dc = {'resolucion':search_result[0][1],
+                          'sspd' : list(val_sspd)[0],
+                          'sspd_fecha' : list(val_sspd_fe)[0],
+                          'expediente_padre' : list(val_expedient_father)[1], 
+                          'num_decision':list(val_solve_decision)[0][3],
+                          'date_decision' :list(val_decision_fe)[0][3],
+                          'radication_RE':val_number_re,
+                          'date_radication_re':list(val_re_fe)[0][1]}
+            
+            objDataBase = TypeDataBase(self.database)
+            id_json = objDataBase.serch_id(dc)
+            objDataBase.update_casoentescontrol(id_json)
             list_doc.append(dc)
     #add the list_doc to attribute of class     
-        letters.insert(1, 'dictionaryDoc', list_doc)
-        self.filelist = letters
-        return self.filelist
+        #letters.insert(1, 'dictionaryDoc', list_doc)
+       # self.filelist = letters
+        print(list_doc)
+        return list_doc
     

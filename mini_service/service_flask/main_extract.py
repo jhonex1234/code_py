@@ -1,17 +1,20 @@
-import json
 import sys
-
 
 from extractField import extractField
 
-def main(json_params):
+def read_file():
 	list_fields = ''
+	databese_info={
+             'localhost':'localhost',
+             'user':'postgres',
+             'pass':'',
+             'db':'pqr_electricaribe'
+}
 	try:
-		obj = extractField(json_params)
+		obj = extractField('/home/jhonex/document_e/',databese_info)
 		obj.organizeDocs()
 		obj.cleanDocs()
 		list_fields = obj.extractFields()
 	except Exception as err:
           print(err)
-	print(list_fields)
-main(sys.argv[1])
+	return list_fields
