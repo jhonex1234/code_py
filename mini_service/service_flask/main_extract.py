@@ -11,7 +11,7 @@ def read_file():
              'db':'pqr_electricaribe'
 }
 	try:
-		obj = extractField('/home/jhonex/document_e/',databese_info)
+		obj = extractField('/home/jhonex/document_e1/',databese_info)
 		obj.organizeDocs()
 		obj.cleanDocs()
 		list_fields = obj.extractFields()
