@@ -13,17 +13,10 @@ app_flask = Flask(__name__)
 #read('/home/jhonex/document_e/')
 #page initial
 
-
 @app_flask.route('/')
 def index():
-	return render_template('index.html')
-
-
-#Extractor_field
-@app_flask.route('/nltk/ef/', methods=['GET'])
-def get_fields():
-   file = read_file()
-   return  jsonify({'Campos': file})
+  execute = queryField() 
+  return
 
 
 #launch error 404
@@ -34,7 +27,7 @@ def not_found(error):
 
 if __name__ == '__main__':
     #app.run(host='0.0.0.0',debug=True)
-    app_flask.run(host='0.0.0.0',debug = True,port=5001)
+    app_flask.run(host='0.0.0.0',debug = True)
     ## peticion tiempo
     ## proceso 
     ## wget

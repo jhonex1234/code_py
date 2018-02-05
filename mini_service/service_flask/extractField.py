@@ -146,10 +146,9 @@ class extractField():
             objDataBase = TypeDataBase(self.database)
             id_json = objDataBase.serch_id(dc)
             objDataBase.update_casoentescontrol(id_json)
-            list_doc.append(dc)
-    #add the list_doc to attribute of class     
-        #letters.insert(1, 'dictionaryDoc', list_doc)
-       # self.filelist = letters
+            if dc['id'] != 'none':
+                list_doc.append(dc)
+        
         print(list_doc)
         return list_doc
     
