@@ -1,0 +1,109 @@
+	<!DOCTYPE html>
+	<html lang="en">
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+		<!-- css-->
+		<link rel="stylesheet" type="text/css" href="resource/css/bootstrap.min.css" rel="stylesheet" media="screen">
+		<link rel="stylesheet" type="text/css" href="resource/css/mycss.css" rel="stylesheet" media="screen">
+		<!-- img-->
+		<link rel="shortcut icon" href="resource/img/unnamed.png">
+
+		<title>Editor Json</title>
+	</head>
+	<body>
+		
+		<div class="container">
+		    <div class="row">
+		        <div class="col-md-12">
+		            <div class="well well-sm">
+		                <form class="form-horizontal" method="post">
+		                    <fieldset>
+		                        <legend class="text-center header">Editor Json</legend>
+							
+								<!-- panel botons-->
+			                    <div class="well well-sm panel panel-default col-md-12">
+										 <div class="panel-body">
+										 		<div class="btn-group btn-group-justified" role="group" aria-label="...">
+												    <div class="btn-group" role="group">
+												     <button id='nuevojson' type="button" class="btn btn-primary" data-toggle="tooltip" title="Crea contenido nuevo  para un Json File">Nuevo</button>
+												    </div>
+												  
+												    <div class="btn-group" role="group">
+												      <button data-toggle="tooltip" title="almacena el contenido" id='almacenarjson' type="button" class="btn btn-info">Guardar</button>
+												    </div>
+												    
+												    <div class="btn-group" role="group">
+												       <button id="crearjsonfile" type="button" class="btn btn-success">Finalizar</button>
+												    </div>
+
+												    <div class="btn-group" role="group">
+												      <button id='editarjson' type="button" class="btn btn-warning">Editar</button>
+												    </div>
+
+												    <div class="btn-group" role="group">
+												       <button id="eliminarjson" type="button" class="btn btn-danger">Eliminar</button>
+												    </div>
+												</div>
+										   	<!--	
+										   	opcionañ
+										   		<div class="form-group col-md-12 text-center">
+													
+													<div class="form-group col-md-6">
+							                                <button type="submit" class="btn btn-primary btn-lg">Nuevo</button>
+							                        </div>
+							                        
+							                        <div class="form-group col-md-6">
+							                                <button type="submit" class="btn btn-info btn-lg">Guardar</button>
+							                        </div>
+							                        
+							                        <div class="form-group col-md-6">
+							                        	    <button type="submit" class="btn btn-success btn-lg">Finalizar</button>
+							                        </div>
+							                        
+							                        <div class="form-group col-md-6">
+							                        	    <button type="submit" class="btn btn-danger btn-lg">Eliminar</button>
+							                        </div>
+					                      		</div>
+					                      	--> 
+					                      	<!-- panel form-->
+										  	<div class="well well-sm panel panel-default col-md-12">
+											    <div class="panel-body">
+												    <div class="form-group">
+							                            <div class="col-md-6">
+							                                <input id="keyvalue" name="keyvalue" type="text" placeholder="KeyValue" class="form-control">
+							                            </div>
+							                            <div class="col-md-6">
+								                            <select class="form-control">
+															  <option>key value</option>
+															  <option>key value</option>
+															</select>
+							                        	</div>
+							                        </div>
+
+							                        <div class="form-group">
+							                            <span class="col-md-12  text-center"><i class="fa fa-pencil-square-o bigicon"></i></span>
+							                            <div class="col-md-12">
+							                                <textarea class="form-control" id="message" name="message" placeholder="Enter your massage for us here." rows="3"></textarea>
+							                            </div>
+							                        </div>
+													<!-- cargue de archivo json-->
+								                	<div class="form-group">
+													    <label for="exampleInputFile">Archivo Json</label>
+													    <input type="file" id="exampleInputFile">
+													    <p class="help-block">Cargue de archivo Json, con los campos.</p>
+													</div>
+											</div>
+										</div>
+								    </div>
+	                            </div>
+							</fieldset>
+		                </form>
+		            </div>
+		        </div>
+		    </div>
+		</div>
+	<script language="JavaScript" type="text/javascript" src="script.js"	></script>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
+	</body>
+	</html>
