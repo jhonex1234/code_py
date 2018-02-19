@@ -8,15 +8,14 @@ class editoreplate():
         self.loadJson(file)
         self.findIndex('')
         self.name = file
-        
+
     #load template, into json ---
     def loadJson(self,rel_path):
         try:
             path = os.path.join(script_dir, "uploads/"+rel_path)
             self.file =  json.load(open(path,'r+'))
-        except FileNotFoundError as fn:
+        except OSError:
             self.file = []
-            print('error en la carga del archivo',fn)
         return self.file
     
     #find index, method soport ---
@@ -26,8 +25,7 @@ class editoreplate():
             if (self.file != []):
                    for i in range(0,len(self.file)):
                         if(self.file[i]['id'] == keyvalue):
-                            index = self.file.index(self.file[i])
-            
+                            index = self.file.index(self.file[i])            
         except UnboundLocalError:
             index = ['error']
         return index
@@ -59,28 +57,33 @@ class editoreplate():
     #create template
     def makeJsonData(self,keyvalue,newdata):
         answer = ''
+        filelist = []
         if (self.file != []):
             a = self.findIndex(keyvalue)
             if(a == []):
                 self.file.append({'id':keyvalue,'length':len(newdata),'message':newdata})
             answer = ''
         else:
-            self.file.append({'id':keyvalue,'length':len(newdata),'message':newdata}) 
-            answer = 'Template Creado'
+            filelist.append({'id':keyvalue,'length':len(newdata),'message':newdata}) 
+            self.file = filelist 
         return answer
     
     #make json file, with list 
     def makeJson(self,name):
-        if(name == ''):
-            answer = 'Creado'
-            name = self.name
+        if(self.file != [] ):
+            if(name != ''):
+                file = name+'.json'
+                self.name = name+'.json'
+            else:
+                file = self.name
         else:
-            answer = 'Guardado'
-        file = name+'.json'
-        self.name = file
-        with open(file, 'w') as outfile:
+            file = name+'.json'
+            self.name = name+'.json'
+            
+        file = os.path.join(script_dir, "uploads/"+file)
+        with open(file, 'w+') as outfile:
              json.dump(self.file, outfile)
-        return answer
+        return self.name
         
 
     #create list keys load

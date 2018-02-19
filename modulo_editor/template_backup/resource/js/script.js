@@ -1,85 +1,284 @@
-                                                    /*all function */
-/*Codigo a accion botón cargado json file*/
-function myOnLoad(dirField){
-    if (dirField.trim() != '') {
-        dirField = document.getElementById("docinput").files[0].name; 
-        if (true){
-          sendvalues(1,dirField);  
-        }
-    }
-    return true;
-}
-
-/*delete with keyvalue*/
-function deletScrit(opc,keyvalue){
-    if (keyvalue.trim() != '') {
-        dirField = document.forms[0].docinput.value;
-        template = document.forms[0].message.value;
-        //1
-        return true;
-    }
-}
-/*send  key to input id="keyvalue" and
-load template with keyvalue*/
-
-function loadkey(keyvalue){
-    document.forms[0].keyvalue.value=keyvalue;
-    dirfield = document.forms[0].newnamefile.value;
-    sendvalueskeys(3,dirfield,keyvalue);
-    return true;
-}
-
-/*create new list templates */
-function saveNewteplate(keyvalue,newtemplate){
-    if(keyvalue.trim() != '' && newtemplate.trim() != ''){
-        dirField = document.forms[0].docinput.value;
-        //4
-    }
-    return true;
-}
-
-/*create new json file*/
-function createJson(){
-        dirField = document.forms[0].docinput.value;
-        keyvalue = document.forms[0].keyvalue.value; 
-        template = document.forms[0].message.value; 
-       //5 
-    return true;
-}
-
-function editjson(keyvalue,editemplate){
-    if(keyvalue.trim() != '' && editemplate.trim() != ''){
-        dirField = document.forms[0].docinput.value;
-        //6
-    }
-}
-
-
-
-function cleanField(namedoc){
-    if (namedoc.trim() != '') {
-        keyvalue = document.forms[0].keyvalue.value; 
-        template = document.forms[0].message.value;
-        createtemplatefile(7,namedoc); 
-    } else {
-        alert('no se a almacenado el nombre');
+                                                  /************eyelash nuevo***********/
+                                                
+                                                 /************all function ctr************/
+function makenewfile(namedoc,keyvalue,message){
+    if (namedoc.length != ''){
+        if(keyvalue.trim() != ''){
+            if(message.trim() != ''){
+               createfilenew(7,namedoc,keyvalue,message);
+            }else{
+             alert('te falta el campo mensaje');    
+            }
+        }else{
+            alert('te falta el campo clave');    
+        } 
+    }else {
+        alert('te falta el campo nombre documeto');
     }
  }
 
-                                        /* all function of send*/
-function createtemplatefile(opc,namedoc){
-    $.ajax({
+ function savedicvalue(doc_name,key_value,template){
+    if(doc_name.trim() != ''){
+            if(keyvalue.trim() != ''){
+                if(template.trim() != ''){
+                        sendvalues_addnewlist(5,doc_name,key_value,template);      
+                }else{
+                    alert('te falta el campo edicion template');   
+                }
+            }else{
+                alert('te falta el campo clave');   
+                
+            }
+        }else{
+            alert('te falta el campo ruta archivo');   
+                
+        }
+}
+
+function downloadnewfile(namedoc){
+    document.location = "uploads/"+namedoc;
+}
+
+
+                                                 /************all function send************/
+function createfilenew(opc,namedoc,keyvalue,message){
+     $.ajax({
         url: 'process.php',
-        dataType:'json',
-        data:{'opc':opc,'namedoc':namedoc}
-    }).done(function(data){
-        
+        dataType: 'json',
+        data: {"opc":opc, "namedoc":namedoc,"keyvalue":keyvalue,"message":message}
+       
+    }).done(function(data){   
+        if(data != null){        
+            if (data.error != '') {
+               alert(data.error);
+               return data;
+           }
+        array = data.result;
+        document.forms[0].newname.value = data.doc_name;
+        $('#listnewkey').find('option').remove();
+        addOptions("listnewkey", array);
+        document.getElementById("newfilej").disabled=true
+        document.getElementById("newname").disabled=true
+        }else{
+           alert('no se obtuvo datos');
+        }        
     }).fail(function(){
         alert(';(');
     });
 
 }
+function sendvalues_addnewlist(opc,namedoc,keyvalue,message){
+     $.ajax({
+        url: 'process.php',
+        dataType: 'json',
+        data: {"opc":opc, "namedoc":namedoc,"keyvalue":keyvalue,"message":message}
+       
+    }).done(function(data){   
+        if(data != null){        
+            if (data.error != '') {
+               alert(data.error);
+               return data;            }
+        array = data.result;
+        $('#listnewkey').find('option').remove();
+        addOptions("listnewkey", array);
+        }else{
+           alert('no se obtuvo datos');
+        }        
+    }).fail(function(){
+        alert(';(');
+    });
+}
 
+/*return list key into file json post load*/
+function sendvalues_keys(opc,namedoc,keyvalue){
+    $.ajax({
+        url: 'process.php',
+        dataType: 'json',
+        data: {"opc":opc, "namedoc":namedoc,"keyvalue":keyvalue}
+       
+    }).done(function(data){
+        if(data != null){
+            if (data.error != '') {
+               alert(data.error);
+               return data;
+            }
+            document.forms[0].newtem.value = data.msj;
+            
+        }else{
+            error = 'no se obtuvo datos';
+            document.forms[0].edittemp.value = error;
+            return true;
+        }
+    }).fail(function() {
+        alert(';( error (1)');
+    });
+}
+
+function downloadDataUrlFromJavascript(filename){
+
+    // Construct the a element
+    var link = document.createElement("a");
+    link.download = filename;
+    link.target = "_blank";
+
+    // Construct the uri
+    link.href = "uploads/";
+    document.body.appendChild(link);
+    link.click();
+
+    // Cleanup the DOM
+    document.body.removeChild(link);
+    delete link;
+}
+
+                                                 /************all action button************/
+
+$(document).ready(function(){
+    $('#newfilej').click(function(event) {
+        namedoc = document.forms[0].newname.value;
+        keyvalue = document.forms[0].newkeyvalue.value;
+        message = document.forms[0].newtem.value;
+        makenewfile(namedoc,keyvalue,message);
+    });
+});
+$(document).ready(function() {
+    $('#savenewkey').click(function(event){
+        doc_name = document.forms[0].newname.value;
+        key_value = document.forms[0].newkeyvalue.value;
+        template = document.forms[0].newtem.value;
+        savedicvalue(doc_name,key_value,template);
+    });   
+});
+
+$(document).ready(function() {
+    $('#downfilen').click(function(event){
+        namedoc = document.forms[0].newname.value;
+        downloadnewfile(namedoc)
+    });
+});
+function load_key(keyvalue){
+    document.forms[0].editkeyvalue.value = keyvalue;
+    dirfield = document.forms[0].newname.value;
+    sendvalues_keys(3,dirfield,keyvalue);
+    return true;
+}
+                                                 /************end eyelash nuevo************/
+
+
+
+                                                /************eyelash editar***********/
+
+                                                 /**********all function ctr*******/
+function enableinputkeyvalue(value){
+    if(value==true)
+    {
+        // enable
+        document.getElementById("editkeyvalue").disabled=false;
+    }else if(value==false){
+        // disable
+        document.getElementById("editkeyvalue").disabled=true;
+    }
+}
+
+/*delete with keyvalue*/
+function deletScrit(namedoc,keyvalue){
+    document.forms[0].edittemp.value = '';
+    if (namedoc.length != ''){
+       sendvalues_dele(4,namedoc,keyvalue,message);   
+    }else {
+        alert('te falta el campo nombre documeto');
+    }
+    return true;
+}
+
+/*send  key to input id="keyvalue" and
+load template with keyvalue*/
+
+function loadkey(keyvalue){
+    document.forms[0].editkeyvalue.value = keyvalue;
+    dirfield = document.getElementById("docinput").files[0].name;
+    sendvalueskeys(3,dirfield,keyvalue);
+    return true;
+}
+// Rutina para agregar opciones a un <select>
+function addOptions(domElement, array) {
+ var select = document.getElementsByName(domElement)[0];
+ for (value in array) {
+  var option = document.createElement("option");
+  option.text = array[value];
+  select.add(option);
+ }
+}
+
+/*create new json file*/
+function createJson(){
+    keyvalue = document.forms[0].editkeyvalue.value; 
+    message = document.forms[0].edittemp.value; 
+    namedoc =  document.getElementById("docinput").files[0].name;           
+    if (namedoc.length != ''){
+        if(keyvalue.trim() != ''){
+            if(message.trim() != ''){
+                sendvalues_addlist(5,namedoc,keyvalue,message)
+             }else{
+             alert('te falta el campo mensaje');    
+            }
+        }else{
+            alert('te falta el campo clave');    
+        } 
+    }else {
+        alert('te falta el campo nombre documeto');
+    }
+    return true;
+}
+
+function editjson(dirField,keyvalue,editemplate){
+    if(dirField.trim() != ''){
+        if(keyvalue.trim() != ''){
+            if(editemplate.trim() != ''){
+                    sendvaluesedit(6,dirField,keyvalue,editemplate);      
+            }else{
+                alert('te falta el campo edicion template');   
+            }
+        }else{
+            alert('te falta el campo clave');   
+            
+        }
+    }else{
+        alert('te falta el campo ruta archivo');   
+            
+    }
+}
+
+function downloadfile(namedoc){
+    document.location = "uploads/"+namedoc;
+}
+                                                 /************all function send************/
+
+/*send value for delete*/
+function sendvalues_dele(opc,namedoc,keyvalue,message){
+    $.ajax({
+    
+        url: 'process.php',
+        dataType: 'json',
+        data: {"opc":opc, "namedoc":namedoc,"keyvalue":keyvalue}
+
+    }).done(function(data){   
+        if(data != null){        
+            if (data.error != '') {
+               alert(data.error);
+               return data;
+           }
+        array = data.result;
+        $('#listnewkey').find('option').remove();
+        addOptions("keyvalueselect", array);
+        }else{
+           alert('no se obtuvo datos');
+        }        
+    }).fail(function(){
+        alert(';(');
+    });
+}
+/*return list key into file json post load*/
 function sendvalueskeys(opc,namedoc,keyvalue){
     $.ajax({
         url: 'process.php',
@@ -92,21 +291,21 @@ function sendvalueskeys(opc,namedoc,keyvalue){
                alert(data.error);
                return data;
             }
-            document.forms[0].message.value = data.msj;
+            document.forms[0].edittemp.value = data.msj;
+            document.getElementById("editkeyvalue").disabled=true
           
         }else{
             error = 'no se obtuvo datos';
-            document.forms[0].message.value = error;
+            document.forms[0].edittemp.value = error;
             return true;
         }
     }).fail(function() {
         alert(';( error (1)');
     });
 }
-/*
-params '{"opc":1,"namedoc":"template.json","keyvalue":'saludo,"template":'buenos dias',"newtemplate":"aun no","localitation":"template.json"}'
-*/
+/*send name file, while*/
 function sendvalues(opc,namedoc){
+    var doc = namedoc;
     $.ajax({
         url: 'process.php',
         dataType: 'json',
@@ -119,8 +318,9 @@ function sendvalues(opc,namedoc){
                return;
             }
         array = data.result;
-        document.forms[0].newnamefile.value = data.doc_name;
-        addOptions("keyvalueselect", array);
+        doc = data.doc_name;
+        $('#listnewkey').find('option').remove();
+        addOptions("editkeylist", array);
         }else{
             alert('no se obtuvo datos');
         }
@@ -128,21 +328,52 @@ function sendvalues(opc,namedoc){
         alert(';( error (1)');
     });
 }
-/*
-return load select, load input template
-*/
 
-
-
-// Rutina para agregar opciones a un <select>
-function addOptions(domElement, array) {
- var select = document.getElementsByName(domElement)[0];
- for (value in array) {
-  var option = document.createElement("option");
-  option.text = array[value];
-  select.add(option);
- }
+function sendvaluesedit(opc,namedoc,keyvalue,message){
+    $.ajax({
+        url: 'process.php',
+        dataType: 'json',
+        data: {"opc":opc, "namedoc":namedoc,"keyvalue":keyvalue,"message":message}
+       
+    }).done(function(data){   
+        if(data != null){        
+            if (data.error != '') {
+               alert(data.error);
+               return data;
+           }
+        array = data.result;
+        $('#listnewkey').find('option').remove();
+        addOptions("editkeylist", array);
+        }else{
+           alert('no se obtuvo datos');
+        }        
+    }).fail(function(){
+        alert(';(');
+    });
 }
+
+function sendvalues_addlist(opc,namedoc,keyvalue,message){
+     $.ajax({
+        url: 'process.php',
+        dataType: 'json',
+        data: {"opc":opc, "namedoc":namedoc,"keyvalue":keyvalue,"message":message}
+       
+    }).done(function(data){   
+        if(data != null){        
+            if (data.error != '') {
+               alert(data.error);
+               return data;            }
+        array = data.result;
+        $('#listnewkey').find('option').remove();
+        addOptions("editkeylist", array);
+        }else{
+           alert('no se obtuvo datos');
+        }        
+    }).fail(function(){
+        alert(';(');
+    });
+}
+
 
 /*load and copy file json  */
 $(document).ready(function(){
@@ -170,6 +401,49 @@ $(document).ready(function(){
     }); 
 });
 
+
+                                                 /************all action button************/
+/*Codigo a accion botón cargado json file*/
+function myOnLoad(dirField){
+    if (dirField.trim() != '') {
+        dirField = document.getElementById("docinput").files[0].name; 
+        if (true){
+          sendvalues(1,dirField);  
+        }
+    }
+    return true;
+}
+
+$(document).ready(function() {
+    $('#deletekey').click(function(e){
+    dirField = document.getElementById("docinput").files[0].name; 
+    kvalue = document.forms[0].editkeyvalue.value;
+    deletScrit(dirField,kvalue);
+    });
+});
+
+$(document).ready(function() {
+    $('#saveaddtkey').click(function(e){
+    createJson()
+    });    
+});
+
+$(document).ready(function() {
+    $('#saveedittem').click(function(event){
+        key_value = document.forms[0].editkeyvalue.value;
+        template = document.forms[0].edittemp.value;
+        doc_name = document.getElementById("docinput").files[0].name;
+        editjson(doc_name,key_value,template);
+    });   
+});
+
+$(document).ready(function() {
+    $('#savefileedit').click(function(event){
+        namedoc = document.getElementById("docinput").files[0].name;
+        downloadfile(namedoc)
+    });
+});
+
 $("#docinput").on("filebrowse", function(event) {
     filename = "";
 });
@@ -177,46 +451,7 @@ $("#docinput").on("filebrowse", function(event) {
 $("#docinput").on("fileuploaded", function(event, data, previewId, index) {
     filename = data.response.name;
     filename = filename.replace(/ /g, "_");
-    
+    myOnLoad(dirField);    
 });
 
-
-                                        /*action bottons*/
-$(document).ready(function() {
-    $('#almacenarjson').click(function(e){
-    key_value = document.forms[0].keyvalue.value;
-    template = document.forms[0].message.value;
-    });    
-});
-
-$(document).ready(function() {
-    $('#eliminarjson').click(function(e){
-    key_value = document.forms[0].keyvalue.value;
-    deletScrit(2,key_value);
-    });
-});
-
-$(document).ready(function() {
-    $('#makejsonfile').click(function(event){
-        createJson();
-    });
-});
-$(document).ready(function() {
-    $('#editjson').click(function(event){
-        key_value = document.forms[0].keyvalue.value;
-        template = document.forms[0].message.value;
-        editjson(key_value,template);
-    });   
-});
-$(document).ready(function(){
-    $('#nuevojson').click(function(event) {
-        namedoc = document.forms[0].newnamefile.value;
-        document.forms[0].keyvalue.value = '';
-        document.forms[0].message.value = '';
-        $('select').empty();
-        cleanField(namedoc);
-    });
-});
-
-
-
+                                                    /************end eyelash editar************/    
