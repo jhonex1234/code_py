@@ -1,109 +1,161 @@
-	<!DOCTYPE html>
-	<html lang="en">
-	<head>
-		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-		<!-- css-->
-		<link rel="stylesheet" type="text/css" href="resource/css/bootstrap.min.css" rel="stylesheet" media="screen">
-		<link rel="stylesheet" type="text/css" href="resource/css/mycss.css" rel="stylesheet" media="screen">
-		<!-- img-->
-		<link rel="shortcut icon" href="resource/img/unnamed.png">
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	
+	<link href="http://netdna.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css" rel="stylesheet" />
+	<link href="../css/fileinput.css" media="all" rel="stylesheet" type="text/css" />
+	<link rel="shortcut icon" href="resource/img/unnamed.png">
 
-		<title>Editor Json</title>
-	</head>
-	<body>
-		
-		<div class="container">
-		    <div class="row">
-		        <div class="col-md-12">
-		            <div class="well well-sm">
-		                <form class="form-horizontal" method="post">
-		                    <fieldset>
-		                        <legend class="text-center header">Editor Json</legend>
+	<script	src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+	<script type="text/javascript" src="resource/js/script.js"></script>
+	<script type="text/javascript" src="../js/fileinput.js"></script>
+	<script	type="text/javascript" src="http://netdna.bootstrapcdn.com/bootstrap/3.3.1/js/bootstrap.min.js" ></script>
+	<!-- 
+	<link rel="stylesheet" type="text/css" href="resource/css/bootstrap.min.css" rel="stylesheet" media="screen">
+	<link rel="stylesheet" type="text/css" href="resource/css/mycss.css" rel="stylesheet" media="screen">
+	<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script> -->
+    <title>Template Editor</title>
+    
+</head>
+<body>
+<div class="container">
+	<div class="row">
+		<div class="col-md-12">
+			<div class="well well-sm">
+				<form class="form-horizontal" method="post">
+					<fieldset>
+					<legend class="text-center header">Template Editor</legend>
+
+					<!-- panel botons-->
+					<div class="well well-sm panel panel-default col-md-12">
+					   <div class="panel-body">
+				   		  	  <!-- Nav tabs -->
+						  <ul class="nav nav-tabs" role="tablist">
+						    <li class="nav-item">
+						      <a class="nav-link active" data-toggle="tab" href="#home">Nuevo</a>
+						    </li>
+						    <li class="nav-item">
+						      <a class="nav-link" data-toggle="tab" href="#menu1">Editar</a>
+						    </li>
+						    <!--
+						    <li class="nav-item">
+						      <a class="nav-link" data-toggle="tab" href="#menu2">Menu 2</a>
+						    </li>
+						    -->
+						  </ul>
+						 
+						  <!-- Tab panes -->
+						  <div class="tab-content">
+						    <div id="home" class="container tab-pane active"><br>
+						      <!--<h3 class="text-center">Creacion de Archivo</h3>
+							    -->
+							    <div class="form-group">
+							        <div class="col-md-3">
+				          	          <label for="newname">Nombre documento</label>
+    			          	          <input id="newname" name="newname" type="text" placeholder="Ingrese un nombre" class="form-control newnamme">
+									</div>
+
+									<div class="col-md-3">
+						              <label for="newkeyvalue">Nombre Clave</label>
+    			          	          <input id="newkeyvalue" name="newkeyvalue" type="text" placeholder="KeyValue" class="form-control newkey">
+						            </div>
+									<div id="listnewkey"  class="col-md-5">
+									   <label for="listnewkey">Lista de Claves</label>
+    			          	           <select name="listnewkey" class="form-control listnkey"  onChange="load_key(this.value);">
+										  <option selected="true" disabled>seleciona una llave</option>
+										</select>
+		                        	</div>
+						        </div>
 							
-								<!-- panel botons-->
-			                    <div class="well well-sm panel panel-default col-md-12">
-										 <div class="panel-body">
-										 		<div class="btn-group btn-group-justified" role="group" aria-label="...">
-												    <div class="btn-group" role="group">
-												     <button id='nuevojson' type="button" class="btn btn-primary" data-toggle="tooltip" title="Crea contenido nuevo  para un Json File">Nuevo</button>
-												    </div>
-												  
-												    <div class="btn-group" role="group">
-												      <button data-toggle="tooltip" title="almacena el contenido" id='almacenarjson' type="button" class="btn btn-info">Guardar</button>
-												    </div>
-												    
-												    <div class="btn-group" role="group">
-												       <button id="crearjsonfile" type="button" class="btn btn-success">Finalizar</button>
-												    </div>
-
-												    <div class="btn-group" role="group">
-												      <button id='editarjson' type="button" class="btn btn-warning">Editar</button>
-												    </div>
-
-												    <div class="btn-group" role="group">
-												       <button id="eliminarjson" type="button" class="btn btn-danger">Eliminar</button>
-												    </div>
-												</div>
-										   	<!--	
-										   	opcionañ
-										   		<div class="form-group col-md-12 text-center">
-													
-													<div class="form-group col-md-6">
-							                                <button type="submit" class="btn btn-primary btn-lg">Nuevo</button>
-							                        </div>
-							                        
-							                        <div class="form-group col-md-6">
-							                                <button type="submit" class="btn btn-info btn-lg">Guardar</button>
-							                        </div>
-							                        
-							                        <div class="form-group col-md-6">
-							                        	    <button type="submit" class="btn btn-success btn-lg">Finalizar</button>
-							                        </div>
-							                        
-							                        <div class="form-group col-md-6">
-							                        	    <button type="submit" class="btn btn-danger btn-lg">Eliminar</button>
-							                        </div>
-					                      		</div>
-					                      	--> 
-					                      	<!-- panel form-->
-										  	<div class="well well-sm panel panel-default col-md-12">
-											    <div class="panel-body">
-												    <div class="form-group">
-							                            <div class="col-md-6">
-							                                <input id="keyvalue" name="keyvalue" type="text" placeholder="KeyValue" class="form-control">
-							                            </div>
-							                            <div class="col-md-6">
-								                            <select class="form-control">
-															  <option>key value</option>
-															  <option>key value</option>
-															</select>
-							                        	</div>
-							                        </div>
-
-							                        <div class="form-group">
-							                            <span class="col-md-12  text-center"><i class="fa fa-pencil-square-o bigicon"></i></span>
-							                            <div class="col-md-12">
-							                                <textarea class="form-control" id="message" name="message" placeholder="Enter your massage for us here." rows="3"></textarea>
-							                            </div>
-							                        </div>
-													<!-- cargue de archivo json-->
-								                	<div class="form-group">
-													    <label for="exampleInputFile">Archivo Json</label>
-													    <input type="file" id="exampleInputFile">
-													    <p class="help-block">Cargue de archivo Json, con los campos.</p>
-													</div>
-											</div>
-										</div>
+					            <div class="form-group">
+						            <span class="col-md-11  text-center"><i class="fa fa-pencil-square-o bigicon"></i></span>
+						            <div class="col-md-11">
+						                <label for="newtem">Plantilla</label>
+    			          	           <textarea id="newtem" class="form-control newtemp" name="newtem" placeholder="Ingrese su plantilla." rows="3"></textarea>
+						            </div>
+						        </div>
+								<div class="form-group col-md-12" style="margin-left: 80%;">
+									<div class="btn-group col-md-12" role="group" style="margin-top: 10px; justify-content:center">
+								      <button data-toggle="tooltip" title="almacena el contenido" name="newfilej" id='newfilej' type="button" class="btn btn-default newfile">Nuevo</button>
 								    </div>
+								    
+									<div class="btn-group" role="group" style="margin-top: 10px;">
+								      <button data-toggle="tooltip" title="almacena el contenido" name="savenewkey" id='savenewkey' type="button" class="btn btn-default savekey">Guardar</button>
+								    </div>
+								    
+								    <div class="form-group" style="margin-top:10px;">
+									    <div class="btn-group" role="group">
+								          <button id="downfilen" name="downfilen" type="button" class="btn btn-default downfile">Descargar</button>
+								        </div>
+								    </div>
+								</div>
+							</div>
+						    <div id="menu1" class="container tab-pane fade col-md-12"><br>
+						   		 <div class="form-group">
+							        <div class="col-md-6">
+				          	          <label for="editkeyvalue">Nombre clave</label>
+    			          	          <input id="editkeyvalue" name="editkeyvalue" type="text" placeholder="Ingrese un nombre" class="form-control editkey">
+										<div class="checkbox col-md-7">
+										    <label>
+										      <input id="editnamekey" name="editnamekey" type="checkbox" onchange="enableinputkeyvalue(this.checked);"> editar clave
+										    </label>
+										</div>
+									</div>
+									 <div id="keyvalueselect"  class="col-md-6">
+						                <label for="editkeylist">Claves</label>
+    			          	            <select name="editkeylist" id="editkeylist" class="form-control editlist"  onChange="loadkey(this.value);">
+										  <option selected="true" disabled>seleciona una llave</option>
+										</select>
+						        	</div>								
+								</div>
+
+								<div class="form-group">
+	                            <span class="col-md-12"><i class="fa fa-pencil-square-o bigicon"></i></span>
+	                            <div class="col-md-12">
+	                                <label for="edittemp">Plantilla</label>
+    			          	        <textarea id="edittemp" class="form-control edittem" name="edittemp" placeholder="Enter your massage for us here." rows="3"></textarea>
 	                            </div>
-							</fieldset>
-		                </form>
-		            </div>
-		        </div>
-		    </div>
+	                            <div class="form-group col-md-12" style="margin-top:20px;">
+								 	<div class="col-md-6"> 
+									   <!-- botton load and copy file type json-->
+										<input id="docinput" name="archivo" class="file-loading" type="file"  onchange="myOnLoad(this.value)"/>
+										<p><br/></p>
+										<p class="alert alert-warning" align="justify"><b>Nota</b> solo se aceptan documentos en formato json.</p>
+										<img src="images/ajax-loader.gif" id="loading-indicator" style="display: none;padding-top: 10px; text-align: center"/>		
+									<!--end botton load and copy file type json-->
+									</div>
+   						    		<div class="btn-group" role="group">
+									  <button data-toggle="tooltip" title="almacena el contenido" name="saveaddtkey" id='saveaddtkey' type="button" class="btn btn-info savekeyadd">Guardar</button>
+									</div>
+									<div class="btn-group" role="group">
+									   <button id="deletekey" name="deletekey" type="button" class="btn btn-danger">Eliminar</button>
+									</div>
+									<div class="btn-group" role="group">
+										<button id='saveedittem' name="saveedittem" type="button" class="btn btn-warning">Editar</button>
+									</div>
+									<div class="btn-group" role="group">
+									 <button id="savefileedit" name="savefileedit" type="button" class="btn btn-success">Descargar</button>
+									</div>
+       						    </div>
+	                        </div>
+	    
+						 </div>
+						    <!--
+						    <div id="menu2" class="container tab-pane fade"><br>
+						      <h3>Menu 2</h3>
+						      <p>Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam.</p>
+						    </div>-->
+						  </div>
+							
+					   </div>
+					</div>
+					</fieldset>
+				</form>
+			</div>
 		</div>
-	<script language="JavaScript" type="text/javascript" src="script.js"	></script>
-	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
-	<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
-	</body>
-	</html>
+	</div>
+</div>	
+</body>
+</html>

@@ -1,57 +1,45 @@
 import json
-#read json file, return list
-def loadJson(file):
-    try:
-        file = json.load(open(file))
-    except FileNotFoundError:
-        file = []
-    return file
+import os
+script_dir = os.path.dirname(os.path.abspath(__file__))
 
-#make json file, with list 
-def makeJson(data,name):
-    file = name+'.json'
-    with open(file, 'w') as outfile:
-         json.dump(data, outfile)
+class editoreplate():
+    def __init__(self,file):
+        self.file = file
+        self.loadJson(file)
+        self.name = file
+        
+    #load template, into json ---
+    def loadJson(self,rel_path):
+        try:
+            path = os.path.join(script_dir, "uploads/"+rel_path)
+            self.file =  json.load(open(path,'r+'))
+        except OSError:
+            self.file = {}
+        return self.file
+    
+    def editJson(self,keyvalue,newdata):
+        self.file[keyvalue] = newdata
+        return self.file[keyvalue]
 
-#find index, method soport ---
-def findIndex(listdata,keyvalue):
-    index = []
-    try:
-        if (listdata != []):
-               for i in range(0,len(listdata)):
-                    if(listdata[i]['id'] == keyvalue):
-                        index = listdata.index(listdata[i])
+    def makeJsonData(self,keyvalue,newdata):
+        self.file[keyvalue] = newdata
+  
+    def deleteScript(self,keyvalue):
+        return self.file.pop(keyvalue)
+       
+    def makeJson(self,name):
+        if(self.name != '' ):
+            self.name = self.name
         else:
-            index = 1
-    except UnboundLocalError:
-        index = 1
-    return index
-
-## edit dictionary list
-def editJson(listdata,keyvalue,newdata):
-    if(listdata != []):
-        for i in range(0,len(listdata)):
-            if(listdata[i]['id'] == keyvalue):
-                listdata.remove(listdata[i])
-                listdata.append({'id':keyvalue,'length':len(newdata),'message':newdata})
-    else:
-        listdata = 'seleccione una llave'
-    return listdata
-
-#delete keyvalues and
-def deleteScript(listdata,keyvalue):
-    if (listdata != [] and keyvalue != ''):    
-        listdata.remove(listdata[findIndex(listdata,keyvalue)])
-    else:
-        listdata = 'seleccione una llave'
-    return listdata
-
-#create template
-def makeJsonData(listdata,keyvalue,newdata):
-    if (listdata != []):
-        a = findIndex(listdata,keyvalue)
-        if(a != [''] and a != 1):
-            listdata.append({'id':keyvalue,'length':len(newdata),'message':newdata})
-    else:
-        listdata.append({'id':keyvalue,'length':len(newdata),'message':newdata})
-    return listdata
+            self.name = name+'.json'
+        file = os.path.join(script_dir, "uploads/"+self.name)
+        with open(file, 'w+') as outfile:
+             json.dump(self.file, outfile)
+        return self.name
+        
+    def loadlistkey(self):
+        return list(self.file.keys())
+    
+    def loadmjs(self,key):
+        return self.file[key]
+         

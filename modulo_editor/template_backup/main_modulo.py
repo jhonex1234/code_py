@@ -33,9 +33,10 @@ def main(json_args):
         
         if(args['opc'] == "4" and args['opc']):
             namedocument = args['namedoc']
-            answer = templateObj.deleteScript(str(args['keyvalue']))
+            templateObj.deleteScript(str(args['keyvalue']))
             namedocument = templateObj.makeJson('')
-     
+            answer = 'Llave Eliminada'
+
         if (args['opc'] == "3" ):
             namedocument = args['namedoc']
             answer = templateObj.loadmjs(str(args['keyvalue']))
@@ -45,10 +46,10 @@ def main(json_args):
 
         if(args['opc'] =="6"):
             namedocument = args['namedoc']
-            templateObj.editJson(args['keyvalue'],args['message'])
+            templateObj.editJson(args['keyvalue'],args['selectkey'],args['message'])
         
         if (args['opc'] == "7"):
-            templateObj.makeJsonData(str(args['keyvalue']),str(args['message']))
+            templateObj.makeJsonData(str(args['keyvalue']),args['message'])
             namedocument = templateObj.makeJson(args['namedoc'])
             answer = ''
 

@@ -36,7 +36,22 @@ function makenewfile(namedoc,keyvalue,message){
 }
 
 function downloadnewfile(namedoc){
-    document.location = "uploads/"+namedoc;
+    name_doc = document.forms[0].newname.value;
+    keyvalue = document.forms[0].newkeyvalue.value;
+    template = document.forms[0].newtem.value;
+    if(name_doc.trim() != ''){
+        if(keyvalue.trim() != ''){
+            if(template.trim() != ''){
+                document.location.href = "uploads/"+namedoc;
+            }else{
+                    alert('te falta el campo edicion template');   
+            }
+        }else{
+                alert('te falta el campo clave');   
+        }
+    }else{
+            alert('te falta el campo ruta archivo');   
+    }
 }
 
 
@@ -153,7 +168,7 @@ $(document).ready(function() {
 $(document).ready(function() {
     $('#downfilen').click(function(event){
         namedoc = document.forms[0].newname.value;
-        downloadnewfile(namedoc)
+        downloadnewfile(namedoc);
     });
 });
 function load_key(keyvalue){
@@ -182,11 +197,18 @@ function enableinputkeyvalue(value){
 
 /*delete with keyvalue*/
 function deletScrit(namedoc,keyvalue){
-    document.forms[0].edittemp.value = '';
-    if (namedoc.length != ''){
-       sendvalues_dele(4,namedoc,keyvalue,message);   
-    }else {
-        alert('te falta el campo nombre documeto');
+    var docVal = $('#docinput').val(); 
+    if(docVal != ''){
+        document.forms[0].edittemp.value = '';
+        if (namedoc.length != ''){
+           sendvalues_dele(4,namedoc,keyvalue);
+           document.getElementById("editkeyvalue").disabled=false; 
+           document.forms[0].editkeyvalue.value = '';
+        }else {
+            alert('te falta el campo nombre documeto');
+        }
+    }else{
+        alert('se requiere documento para esta acción');
     }
     return true;
 }
@@ -212,40 +234,49 @@ function addOptions(domElement, array) {
 
 /*create new json file*/
 function createJson(){
-    keyvalue = document.forms[0].editkeyvalue.value; 
-    message = document.forms[0].edittemp.value; 
-    namedoc =  document.getElementById("docinput").files[0].name;           
-    if (namedoc.length != ''){
-        if(keyvalue.trim() != ''){
-            if(message.trim() != ''){
-                sendvalues_addlist(5,namedoc,keyvalue,message)
-             }else{
-             alert('te falta el campo mensaje');    
-            }
-        }else{
-            alert('te falta el campo clave');    
-        } 
-    }else {
-        alert('te falta el campo nombre documeto');
+    var docVal = $('#docinput').val(); 
+    if(docVal != ''){
+        keyvalue = document.forms[0].editkeyvalue.value; 
+        message = document.forms[0].edittemp.value; 
+        namedoc =  document.getElementById("docinput").files[0].name;           
+        if (namedoc.length != ''){
+            if(keyvalue.trim() != ''){
+                if(message.trim() != ''){
+                    sendvalues_addlist(5,namedoc,keyvalue,message)
+                 }else{
+                 alert('te falta el campo mensaje');    
+                }
+            }else{
+                alert('te falta el campo clave');    
+            } 
+        }else {
+            alert('te falta el campo nombre documeto');
+        }
+    }else{
+        alert('se requiere documento para esta acción');
     }
     return true;
 }
 
-function editjson(dirField,keyvalue,editemplate){
-    if(dirField.trim() != ''){
-        if(keyvalue.trim() != ''){
-            if(editemplate.trim() != ''){
-                    sendvaluesedit(6,dirField,keyvalue,editemplate);      
+function editjson(dirField,keyvalue,selctkey,editemplate){
+    var docVal = $('#docinput').val(); 
+    if(docVal != ''){
+        if(dirField.trim() != ''){
+            if(keyvalue.trim() != ''){
+                if(editemplate.trim() != ''){
+                        sendvaluesedit(6,dirField,keyvalue,selctkey,editemplate);      
+                }else{
+                    alert('te falta el campo edicion template');   
+                }
             }else{
-                alert('te falta el campo edicion template');   
+                alert('te falta el campo clave');   
+                
             }
         }else{
-            alert('te falta el campo clave');   
-            
+        alert('se requiere documento para esta acción');   
         }
     }else{
-        alert('te falta el campo ruta archivo');   
-            
+        alert('')
     }
 }
 
@@ -255,7 +286,7 @@ function downloadfile(namedoc){
                                                  /************all function send************/
 
 /*send value for delete*/
-function sendvalues_dele(opc,namedoc,keyvalue,message){
+function sendvalues_dele(opc,namedoc,keyvalue){
     $.ajax({
     
         url: 'process.php',
@@ -268,9 +299,9 @@ function sendvalues_dele(opc,namedoc,keyvalue,message){
                alert(data.error);
                return data;
            }
-        array = data.result;
-        $('#listnewkey').find('option').remove();
-        addOptions("keyvalueselect", array);
+        array = data.result;    
+        $('#editkeylist').find('option').remove();
+        addOptions("editkeylist", array);
         }else{
            alert('no se obtuvo datos');
         }        
@@ -291,7 +322,8 @@ function sendvalueskeys(opc,namedoc,keyvalue){
                alert(data.error);
                return data;
             }
-            document.forms[0].edittemp.value = data.msj;
+             var menssage = data.msj;
+            document.forms[0].edittemp.value = menssage.join('<>');
             document.getElementById("editkeyvalue").disabled=true
           
         }else{
@@ -319,7 +351,7 @@ function sendvalues(opc,namedoc){
             }
         array = data.result;
         doc = data.doc_name;
-        $('#listnewkey').find('option').remove();
+        $('#editkeylist').find('option').remove();
         addOptions("editkeylist", array);
         }else{
             alert('no se obtuvo datos');
@@ -329,11 +361,11 @@ function sendvalues(opc,namedoc){
     });
 }
 
-function sendvaluesedit(opc,namedoc,keyvalue,message){
+function sendvaluesedit(opc,namedoc,keyvalue,selectkey,message){
     $.ajax({
         url: 'process.php',
         dataType: 'json',
-        data: {"opc":opc, "namedoc":namedoc,"keyvalue":keyvalue,"message":message}
+        data: {"opc":opc, "namedoc":namedoc,"keyvalue":keyvalue,"selectkey":selectkey,"message":message}
        
     }).done(function(data){   
         if(data != null){        
@@ -342,7 +374,7 @@ function sendvaluesedit(opc,namedoc,keyvalue,message){
                return data;
            }
         array = data.result;
-        $('#listnewkey').find('option').remove();
+        $('#editkeylist').find('option').remove();
         addOptions("editkeylist", array);
         }else{
            alert('no se obtuvo datos');
@@ -364,7 +396,7 @@ function sendvalues_addlist(opc,namedoc,keyvalue,message){
                alert(data.error);
                return data;            }
         array = data.result;
-        $('#listnewkey').find('option').remove();
+        $('#editkeylist').find('option').remove();
         addOptions("editkeylist", array);
         }else{
            alert('no se obtuvo datos');
@@ -387,7 +419,7 @@ function baseName(str) {
     return base;
 }
 
-var filename = "";
+//var filename = "";
 $(document).ready(function(){
     $("#docinput").fileinput({
         allowedFileExtensions: ['json'],
@@ -414,6 +446,17 @@ function myOnLoad(dirField){
     return true;
 }
 
+//$("#docinput").on("filebrowse", function(event) {
+   // filename = "";
+//});
+
+$("#docinput").on("fileuploaded", function(event, data, previewId, index) {
+    filename = data.response.name;
+    filename = filename.replace(/ /g, "_");
+    myOnLoad(dirField);    
+});
+
+
 $(document).ready(function() {
     $('#deletekey').click(function(e){
     dirField = document.getElementById("docinput").files[0].name; 
@@ -430,10 +473,11 @@ $(document).ready(function() {
 
 $(document).ready(function() {
     $('#saveedittem').click(function(event){
-        key_value = document.forms[0].editkeyvalue.value;
-        template = document.forms[0].edittemp.value;
-        doc_name = document.getElementById("docinput").files[0].name;
-        editjson(doc_name,key_value,template);
+        var key_value = document.forms[0].editkeyvalue.value;
+        var template = document.forms[0].edittemp.value;
+        var doc_name = document.getElementById("docinput").files[0].name;
+        var selectkeyval = $("#editkeylist").val();
+        editjson(doc_name,key_value,selectkeyval,template);
     });   
 });
 
@@ -443,15 +487,4 @@ $(document).ready(function() {
         downloadfile(namedoc)
     });
 });
-
-$("#docinput").on("filebrowse", function(event) {
-    filename = "";
-});
-
-$("#docinput").on("fileuploaded", function(event, data, previewId, index) {
-    filename = data.response.name;
-    filename = filename.replace(/ /g, "_");
-    myOnLoad(dirField);    
-});
-
                                                     /************end eyelash editar************/    

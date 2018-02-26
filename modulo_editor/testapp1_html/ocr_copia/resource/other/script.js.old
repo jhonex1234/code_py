@@ -1,0 +1,166 @@
+/*Codigo a accion botón cargado json file*/
+function myOnLoad(dirField){
+    if (dirField.trim() != '') {
+    	document.forms[0].newnamefile.value = dirField
+    	if (true){
+          sendvalues(1,dirField,'','','',dirField);  
+        }
+    }
+    return true;
+}
+/*delete with keyvalue*/
+function deletScrit(opc,keyvalue){
+    if (keyvalue.trim() != '') {
+        sendvalues(opc,'',keyvalue,'','','');
+        return true;
+    }
+}
+/*send  key to input id="keyvalue" */
+function loadkey(keyvalue){
+    document.forms[0].keyvalue.value=keyvalue;
+    loadtemplate(keyvalue);
+    return true;
+}
+/*load template with keyvalue*/
+function loadtemplate(keyvalue){
+    if(keyvalue.trim() != ''){
+        document.forms[0].message.value = sendvalues(3,keyvalue,'','','','');
+        return true;
+    }
+}
+/*create new list templates */
+function saveNewteplate(keyvalue,newtemplate){
+    if(keyvalue.trim() != '' && newtemplate.trim() != ''){
+      sendvalues(4,'',keyvalue,newtemplate,'','');
+    }
+    return true;
+}
+/*create new json file*/
+function createJson(){
+    sendvalues(5,'','','','','');
+    return true;
+}
+
+function editjson(keyvalue,editemplate){
+    if(keyvalue.trim() != '' && editemplate.trim() != ''){
+     sendvalues(6,'',keyvalue,'',editemplate,'');
+    }
+}
+
+function cleanField(namedoc){
+    if (namedoc.trim() != '') {
+        sendvalues(7,'namedoc','','','','');
+    } else {
+        alert('no se a almacenado el nombre');
+    }
+ }
+/*action bottons*/
+$(document).ready(function() {
+    $('#almacenarjson').click(function(e){
+    key_value = document.forms[0].keyvalue.value
+    template = document.forms[0].message.value
+    saveNewteplate(key_value,template);
+    });    
+});
+
+$(document).ready(function() {
+    $('#eliminarjson').click(function(e){
+    key_value = document.forms[0].keyvalue.value
+    deletScrit(2,key_value);
+    });
+});
+
+$(document).ready(function() {
+    $('#makejsonfile').click(function(event){
+        createJson();
+    });
+});
+$(document).ready(function() {
+    $('#editjson').click(function(event){
+        key_value = document.forms[0].keyvalue.value
+        template = document.forms[0].message.value
+        editjson(key_value,template);
+    });   
+});
+$(document).ready(function(){
+    $('#nuevojson').click(function(event) {
+        namedoc = document.forms[0].newnamefile.value
+        cleanField(namedoc);
+    });
+});
+
+
+/*
+params '{"opc":int,"namedoc":str,"keyvalue":str,"template":str,"newtemplate":str}'
+*/
+function sendvalues(opc,namedoc,keyvalue,template,newtemplate,localitation){
+    $.ajax({
+        url: 'process.php',
+        data: {
+            "opc":opc,
+            "namedoc":namedoc,
+            "keyvalue":keyvalue,
+            "template":template,
+            "newtemplate":newtemplate,
+            "localitation":localitation
+        },
+        dataType: 'json'
+    }).done(function(data){
+        if (data.error != '') {
+            alert(data.error);
+            return;
+        }
+        addOptions("keyvalueselect", data.result);
+    }).fail(function() {
+        alert(';( error (1)');
+    }).always(function() {
+        return data;
+    });
+}
+/*
+return load select, load input template
+*/
+
+
+
+// Rutina para agregar opciones a un <select>
+function addOptions(domElement, array) {
+ var select = document.getElementsByName(domElement)[0];
+ for (value in array) {
+  var option = document.createElement("option");
+  option.text = array[value];
+  select.add(option);
+ }
+}
+
+$(document).ready(function() {
+    $("#docinput").fileinput({
+    allowedFileExtensions: ['pdf', 'jpg', 'jpeg', 'png', 'tif', 'tiff', 'bmp'],
+    uploadUrl: "uploadfiles.php",
+    maxFileSize: 10000000,
+    initialCaption: "Fotocopia del documento",
+    //dropZoneTitle: "",
+    browseLabel: "",
+    removeLabel: "",
+    uploadLabel: ""
+  });    
+});
+ 
+
+$("#docinput").on("fileclear", function(event) {
+    $("#ocrtxt").prop("src","");
+});
+
+$("#docinput").on("filebrowse", function(event) {
+    filename = "";
+});
+
+$("#docinput").on("fileuploaded", function(event, data, previewId, index) {
+    $("#ocrtxt").prop("src","");
+    filename = data.response.name
+    filename = filename.replace(/ /g, "_");
+    if (filename != "") {
+        $("#hacer").prop("disabled", false);
+    }
+});
+  

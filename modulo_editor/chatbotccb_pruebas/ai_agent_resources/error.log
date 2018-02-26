@@ -1,0 +1,192 @@
+06/02/2018 08:15:07 PM 	Traceback (most recent call last):
+			  File "ai_agent.py", line 39, in main
+			    debug, message, length, transfer = chatbot.get_answer(args['message'])
+			  File "/var/www/html/demo/chatbotccb_pruebas/dialog_management.py", line 247, in get_answer
+			    record = self.__dialog_tree.make_transition(input_message)
+			  File "/var/www/html/demo/chatbotccb_pruebas/dialog_management.py", line 148, in make_transition
+			    prediction, current_state_proba = self.__get_model_results(self.__states[self.__current_state], message)
+			  File "/var/www/html/demo/chatbotccb_pruebas/dialog_management.py", line 128, in __get_model_results
+			    features = state.vectorizer.transform([message])
+			  File "/usr/local/lib/python3.4/dist-packages/sklearn/feature_extraction/text.py", line 1380, in transform
+			    X = super(TfidfVectorizer, self).transform(raw_documents)
+			  File "/usr/local/lib/python3.4/dist-packages/sklearn/feature_extraction/text.py", line 893, in transform
+			    _, X = self._count_vocab(raw_documents, fixed_vocab=True)
+			  File "/usr/local/lib/python3.4/dist-packages/sklearn/feature_extraction/text.py", line 762, in _count_vocab
+			    for feature in analyze(doc):
+			  File "/usr/local/lib/python3.4/dist-packages/sklearn/feature_extraction/text.py", line 241, in <lambda>
+			    tokenize(preprocess(self.decode(doc))), stop_words)
+			  File "/var/www/html/demo/chatbotccb_pruebas/helpers.py", line 51, in clear_text
+			    for word in words]
+			  File "/var/www/html/demo/chatbotccb_pruebas/helpers.py", line 51, in <listcomp>
+			    for word in words]
+			TypeError: argument of type 'NoneType' is not iterable
+			
+06/02/2018 08:31:35 PM 	Traceback (most recent call last):
+			  File "ai_agent.py", line 39, in main
+			    debug, message, length, transfer = chatbot.get_answer(args['message'])
+			  File "/var/www/html/demo/chatbotccb_pruebas/dialog_management.py", line 247, in get_answer
+			    record = self.__dialog_tree.make_transition(input_message)
+			  File "/var/www/html/demo/chatbotccb_pruebas/dialog_management.py", line 148, in make_transition
+			    prediction, current_state_proba = self.__get_model_results(self.__states[self.__current_state], message)
+			  File "/var/www/html/demo/chatbotccb_pruebas/dialog_management.py", line 128, in __get_model_results
+			    features = state.vectorizer.transform([message])
+			  File "/usr/local/lib/python3.4/dist-packages/sklearn/feature_extraction/text.py", line 1380, in transform
+			    X = super(TfidfVectorizer, self).transform(raw_documents)
+			  File "/usr/local/lib/python3.4/dist-packages/sklearn/feature_extraction/text.py", line 893, in transform
+			    _, X = self._count_vocab(raw_documents, fixed_vocab=True)
+			  File "/usr/local/lib/python3.4/dist-packages/sklearn/feature_extraction/text.py", line 762, in _count_vocab
+			    for feature in analyze(doc):
+			  File "/usr/local/lib/python3.4/dist-packages/sklearn/feature_extraction/text.py", line 241, in <lambda>
+			    tokenize(preprocess(self.decode(doc))), stop_words)
+			  File "/var/www/html/demo/chatbotccb_pruebas/helpers.py", line 51, in clear_text
+			    for word in words]
+			  File "/var/www/html/demo/chatbotccb_pruebas/helpers.py", line 51, in <listcomp>
+			    for word in words]
+			TypeError: argument of type 'NoneType' is not iterable
+			
+06/02/2018 08:32:25 PM 	Traceback (most recent call last):
+			  File "ai_agent.py", line 39, in main
+			    debug, message, length, transfer = chatbot.get_answer(args['message'])
+			  File "/var/www/html/demo/chatbotccb_pruebas/dialog_management.py", line 247, in get_answer
+			    record = self.__dialog_tree.make_transition(input_message)
+			  File "/var/www/html/demo/chatbotccb_pruebas/dialog_management.py", line 148, in make_transition
+			    prediction, current_state_proba = self.__get_model_results(self.__states[self.__current_state], message)
+			  File "/var/www/html/demo/chatbotccb_pruebas/dialog_management.py", line 128, in __get_model_results
+			    features = state.vectorizer.transform([message])
+			  File "/usr/local/lib/python3.4/dist-packages/sklearn/feature_extraction/text.py", line 1380, in transform
+			    X = super(TfidfVectorizer, self).transform(raw_documents)
+			  File "/usr/local/lib/python3.4/dist-packages/sklearn/feature_extraction/text.py", line 893, in transform
+			    _, X = self._count_vocab(raw_documents, fixed_vocab=True)
+			  File "/usr/local/lib/python3.4/dist-packages/sklearn/feature_extraction/text.py", line 762, in _count_vocab
+			    for feature in analyze(doc):
+			  File "/usr/local/lib/python3.4/dist-packages/sklearn/feature_extraction/text.py", line 241, in <lambda>
+			    tokenize(preprocess(self.decode(doc))), stop_words)
+			  File "/var/www/html/demo/chatbotccb_pruebas/helpers.py", line 51, in clear_text
+			    for word in words]
+			  File "/var/www/html/demo/chatbotccb_pruebas/helpers.py", line 51, in <listcomp>
+			    for word in words]
+			TypeError: argument of type 'NoneType' is not iterable
+			
+06/02/2018 08:34:11 PM 	Traceback (most recent call last):
+			  File "ai_agent.py", line 39, in main
+			    debug, message, length, transfer = chatbot.get_answer(args['message'])
+			  File "/var/www/html/demo/chatbotccb_pruebas/dialog_management.py", line 247, in get_answer
+			    record = self.__dialog_tree.make_transition(input_message)
+			  File "/var/www/html/demo/chatbotccb_pruebas/dialog_management.py", line 148, in make_transition
+			    prediction, current_state_proba = self.__get_model_results(self.__states[self.__current_state], message)
+			  File "/var/www/html/demo/chatbotccb_pruebas/dialog_management.py", line 128, in __get_model_results
+			    features = state.vectorizer.transform([message])
+			  File "/usr/local/lib/python3.4/dist-packages/sklearn/pipeline.py", line 763, in transform
+			    for name, trans, weight in self._iter())
+			  File "/usr/local/lib/python3.4/dist-packages/sklearn/externals/joblib/parallel.py", line 758, in __call__
+			    while self.dispatch_one_batch(iterator):
+			  File "/usr/local/lib/python3.4/dist-packages/sklearn/externals/joblib/parallel.py", line 608, in dispatch_one_batch
+			    self._dispatch(tasks)
+			  File "/usr/local/lib/python3.4/dist-packages/sklearn/externals/joblib/parallel.py", line 571, in _dispatch
+			    job = self._backend.apply_async(batch, callback=cb)
+			  File "/usr/local/lib/python3.4/dist-packages/sklearn/externals/joblib/_parallel_backends.py", line 109, in apply_async
+			    result = ImmediateResult(func)
+			  File "/usr/local/lib/python3.4/dist-packages/sklearn/externals/joblib/_parallel_backends.py", line 326, in __init__
+			    self.results = batch()
+			  File "/usr/local/lib/python3.4/dist-packages/sklearn/externals/joblib/parallel.py", line 131, in __call__
+			    return [func(*args, **kwargs) for func, args, kwargs in self.items]
+			  File "/usr/local/lib/python3.4/dist-packages/sklearn/externals/joblib/parallel.py", line 131, in <listcomp>
+			    return [func(*args, **kwargs) for func, args, kwargs in self.items]
+			  File "/usr/local/lib/python3.4/dist-packages/sklearn/pipeline.py", line 567, in _transform_one
+			    res = transformer.transform(X)
+			  File "/usr/local/lib/python3.4/dist-packages/sklearn/feature_extraction/text.py", line 1380, in transform
+			    X = super(TfidfVectorizer, self).transform(raw_documents)
+			  File "/usr/local/lib/python3.4/dist-packages/sklearn/feature_extraction/text.py", line 893, in transform
+			    _, X = self._count_vocab(raw_documents, fixed_vocab=True)
+			  File "/usr/local/lib/python3.4/dist-packages/sklearn/feature_extraction/text.py", line 762, in _count_vocab
+			    for feature in analyze(doc):
+			  File "/usr/local/lib/python3.4/dist-packages/sklearn/feature_extraction/text.py", line 241, in <lambda>
+			    tokenize(preprocess(self.decode(doc))), stop_words)
+			  File "/var/www/html/demo/chatbotccb_pruebas/helpers.py", line 51, in clear_text
+			    for word in words]
+			  File "/var/www/html/demo/chatbotccb_pruebas/helpers.py", line 51, in <listcomp>
+			    for word in words]
+			TypeError: argument of type 'NoneType' is not iterable
+			
+06/02/2018 08:39:52 PM 	Traceback (most recent call last):
+			  File "ai_agent.py", line 39, in main
+			    debug, message, length, transfer = chatbot.get_answer(args['message'])
+			  File "/var/www/html/demo/chatbotccb_pruebas/dialog_management.py", line 247, in get_answer
+			    record = self.__dialog_tree.make_transition(input_message)
+			  File "/var/www/html/demo/chatbotccb_pruebas/dialog_management.py", line 148, in make_transition
+			    prediction, current_state_proba = self.__get_model_results(self.__states[self.__current_state], message)
+			  File "/var/www/html/demo/chatbotccb_pruebas/dialog_management.py", line 128, in __get_model_results
+			    features = state.vectorizer.transform([message])
+			  File "/usr/local/lib/python3.4/dist-packages/sklearn/pipeline.py", line 763, in transform
+			    for name, trans, weight in self._iter())
+			  File "/usr/local/lib/python3.4/dist-packages/sklearn/externals/joblib/parallel.py", line 758, in __call__
+			    while self.dispatch_one_batch(iterator):
+			  File "/usr/local/lib/python3.4/dist-packages/sklearn/externals/joblib/parallel.py", line 608, in dispatch_one_batch
+			    self._dispatch(tasks)
+			  File "/usr/local/lib/python3.4/dist-packages/sklearn/externals/joblib/parallel.py", line 571, in _dispatch
+			    job = self._backend.apply_async(batch, callback=cb)
+			  File "/usr/local/lib/python3.4/dist-packages/sklearn/externals/joblib/_parallel_backends.py", line 109, in apply_async
+			    result = ImmediateResult(func)
+			  File "/usr/local/lib/python3.4/dist-packages/sklearn/externals/joblib/_parallel_backends.py", line 326, in __init__
+			    self.results = batch()
+			  File "/usr/local/lib/python3.4/dist-packages/sklearn/externals/joblib/parallel.py", line 131, in __call__
+			    return [func(*args, **kwargs) for func, args, kwargs in self.items]
+			  File "/usr/local/lib/python3.4/dist-packages/sklearn/externals/joblib/parallel.py", line 131, in <listcomp>
+			    return [func(*args, **kwargs) for func, args, kwargs in self.items]
+			  File "/usr/local/lib/python3.4/dist-packages/sklearn/pipeline.py", line 567, in _transform_one
+			    res = transformer.transform(X)
+			  File "/usr/local/lib/python3.4/dist-packages/sklearn/feature_extraction/text.py", line 1380, in transform
+			    X = super(TfidfVectorizer, self).transform(raw_documents)
+			  File "/usr/local/lib/python3.4/dist-packages/sklearn/feature_extraction/text.py", line 893, in transform
+			    _, X = self._count_vocab(raw_documents, fixed_vocab=True)
+			  File "/usr/local/lib/python3.4/dist-packages/sklearn/feature_extraction/text.py", line 762, in _count_vocab
+			    for feature in analyze(doc):
+			  File "/usr/local/lib/python3.4/dist-packages/sklearn/feature_extraction/text.py", line 241, in <lambda>
+			    tokenize(preprocess(self.decode(doc))), stop_words)
+			  File "/var/www/html/demo/chatbotccb_pruebas/helpers.py", line 48, in clear_text
+			    for word in words]
+			  File "/var/www/html/demo/chatbotccb_pruebas/helpers.py", line 48, in <listcomp>
+			    for word in words]
+			NameError: name 'spelling_dict' is not defined
+			
+06/02/2018 08:41:23 PM 	Traceback (most recent call last):
+			  File "ai_agent.py", line 39, in main
+			    debug, message, length, transfer = chatbot.get_answer(args['message'])
+			  File "/var/www/html/demo/chatbotccb_pruebas/dialog_management.py", line 247, in get_answer
+			    record = self.__dialog_tree.make_transition(input_message)
+			  File "/var/www/html/demo/chatbotccb_pruebas/dialog_management.py", line 148, in make_transition
+			    prediction, current_state_proba = self.__get_model_results(self.__states[self.__current_state], message)
+			  File "/var/www/html/demo/chatbotccb_pruebas/dialog_management.py", line 128, in __get_model_results
+			    features = state.vectorizer.transform([message])
+			  File "/usr/local/lib/python3.4/dist-packages/sklearn/pipeline.py", line 763, in transform
+			    for name, trans, weight in self._iter())
+			  File "/usr/local/lib/python3.4/dist-packages/sklearn/externals/joblib/parallel.py", line 758, in __call__
+			    while self.dispatch_one_batch(iterator):
+			  File "/usr/local/lib/python3.4/dist-packages/sklearn/externals/joblib/parallel.py", line 608, in dispatch_one_batch
+			    self._dispatch(tasks)
+			  File "/usr/local/lib/python3.4/dist-packages/sklearn/externals/joblib/parallel.py", line 571, in _dispatch
+			    job = self._backend.apply_async(batch, callback=cb)
+			  File "/usr/local/lib/python3.4/dist-packages/sklearn/externals/joblib/_parallel_backends.py", line 109, in apply_async
+			    result = ImmediateResult(func)
+			  File "/usr/local/lib/python3.4/dist-packages/sklearn/externals/joblib/_parallel_backends.py", line 326, in __init__
+			    self.results = batch()
+			  File "/usr/local/lib/python3.4/dist-packages/sklearn/externals/joblib/parallel.py", line 131, in __call__
+			    return [func(*args, **kwargs) for func, args, kwargs in self.items]
+			  File "/usr/local/lib/python3.4/dist-packages/sklearn/externals/joblib/parallel.py", line 131, in <listcomp>
+			    return [func(*args, **kwargs) for func, args, kwargs in self.items]
+			  File "/usr/local/lib/python3.4/dist-packages/sklearn/pipeline.py", line 567, in _transform_one
+			    res = transformer.transform(X)
+			  File "/usr/local/lib/python3.4/dist-packages/sklearn/feature_extraction/text.py", line 1380, in transform
+			    X = super(TfidfVectorizer, self).transform(raw_documents)
+			  File "/usr/local/lib/python3.4/dist-packages/sklearn/feature_extraction/text.py", line 893, in transform
+			    _, X = self._count_vocab(raw_documents, fixed_vocab=True)
+			  File "/usr/local/lib/python3.4/dist-packages/sklearn/feature_extraction/text.py", line 762, in _count_vocab
+			    for feature in analyze(doc):
+			  File "/usr/local/lib/python3.4/dist-packages/sklearn/feature_extraction/text.py", line 241, in <lambda>
+			    tokenize(preprocess(self.decode(doc))), stop_words)
+			  File "/var/www/html/demo/chatbotccb_pruebas/helpers.py", line 51, in clear_text
+			    for word in words]
+			  File "/var/www/html/demo/chatbotccb_pruebas/helpers.py", line 51, in <listcomp>
+			    for word in words]
+			TypeError: argument of type 'NoneType' is not iterable
+			
