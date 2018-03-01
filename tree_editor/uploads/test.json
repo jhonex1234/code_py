@@ -1,0 +1,8 @@
+{
+ "max_attempts": 0,
+ "final_state": "s8", 
+"initial_state": "s1",
+ "models": [],
+"templates": [],
+ "transitions": []
+}
