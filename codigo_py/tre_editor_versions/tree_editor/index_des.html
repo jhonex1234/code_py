@@ -1,0 +1,653 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	
+	<link href="http://netdna.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css" rel="stylesheet" />
+	<link href="resource/css/mycss.css" media="all" rel="stylesheet" type="text/css" />
+	<link rel="shortcut icon" href="resource/img/unnamed.png">
+
+	<script	src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+
+	
+	<script type="text/javascript" src="resource/js/script.js"></script>
+	<!--
+	<script type="text/javascript" src="../js/fileinput.js"></script>
+	-->
+	<script type="text/javascript" src="resource/js/script_r.js"></script>
+	<script	type="text/javascript" src="http://netdna.bootstrapcdn.com/bootstrap/3.3.1/js/bootstrap.min.js" ></script>
+	<title>Tree_Editor</title>
+</head>
+<body>
+	<div class="container">
+		<div class="row">
+			<div class="col-md-12">
+				<div class="well well-sm">
+					<form class="form-horizontal" method="post">
+						<fieldset>
+							<legend class="text-center header">Tree Editor</legend>
+
+							<!-- panel botons-->
+							<div class="well well-sm panel panel-default col-md-12">
+							    <div class="panel-body">
+	 					       	    <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
+									  
+									    <div class="panel panel-default">
+									        <div class="panel-heading" role="tab" id="headingOne">
+										      <h4 class="panel-title">
+										        <a role="button" data-toggle="collapse" data-toggle="tooltip" title="Carga Arbo o Crear nuevo" data-parent="#accordion" href="#collapseOne" aria-expanded="false" aria-controls="collapseOne">
+										          Edicion Recursos Arbol
+										        </a>
+										      </h4>
+										    </div>
+										    <div id="collapseOne" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingOne">
+										      <div class="panel-body">
+												    <div class="jumbotron">
+												    	<div class="row">
+												    		<div class="col-md-12" style="margin-top: 10px; left: 59px;">
+												    			<div class="form-group">
+																    <div class="col-md-5">  
+															          <label for="treefiellab">Archivo Configuracion</label>
+																      <input type="text" class="form-control" id="filetreeload" name="filetreeload" placeholder="Nombre Documento">
+																      <input type="text" id="file_tree_load_suport" name="file_tree_load_suport" style="display: none;">
+																      <input type="text" id="file_tree_pkl_suport" name="file_tree_pkl_suport" style="display: none;">
+																	 	
+																    </div>
+																    <div class="btn-group" style="left: 10px; margin-top: 19px;">					<div class="checkbox">
+																		    <label>
+																		      <input type="checkbox" id="newfield_r" name="newfield_r"
+																		      onchange="createField(this.checked);">Nuevo					
+																		    </label>
+																		</div>
+																	</div>
+
+																	<div class="btn-group" role="group" id="docinputn_tree__load" style="left: 18px; margin-top: 19px;">
+																		    <label data-toggle="tooltip" title="Carga  Documento para la edicion del contenido" class="btn btn-primary btn-file">
+																				Cargar Archivo
+																			<input type="file" id="docinput" onchange="return fileValidation()" name="docinput" style="display: none;">
+																	 		</label>
+																	</div>					 		
+																 	<div class="btn-group" role="group" style="margin-top: 25px; left: 23px;">				
+																 		 <button id="upload" class="btn btn-Info">Enviar</button>
+																    </div>
+															   </div>
+            													
+
+																<div class="form-group">
+																	
+															        <div class="col-md-12">
+															        	<div class="col-md-5" style="margin-top: 40px;">
+																			<label for="lltemplates_lab">Seleccion de carga de Recurso
+																			</label>
+																		    <select name="resouceSelec" id="resouceSelec" class="form-control lltemplates" style="margin-top: 10px;"
+																		     onChange="scheduleA.call(this, event);">
+																			    <option value="0">
+																			    Seleccion 
+																			    </option>
+																			    <option value="1">
+																			     Paque de modelos
+																			    </option>
+																			    <option value="2">
+																			    	Plantillas
+																			    </option>
+																			    <option value="3">
+																			    	Arbol de configuracion
+																			    </option>
+																			    <option value="4">
+																			    	Nuevo Arbol de configuracion
+																			    </option>
+																			
+																			</select>
+																			<button style="margin-top: 15px;" class="btn btn-info" type="button" data-toggle="collapse" data-target="#collapseExample1" aria-expanded="false" aria-controls="collapseExample1">
+																			  Ver Progreso
+																			</button>
+																			<div class="collapse" id="collapseExample1">
+																			  <div class="well">
+																			    	<ul class="list-group">
+																					  <li class="list-group-item list-group-item-info">
+																					  	Existencia de arbol de cnfiguracion
+																					  	<label style=" margin-bottom: 30px" class="checkbox-inline">
+																						  <input style="right:35px;"  type="checkbox" name="exis_tree" id="exis_tree">
+																						</label>
+																					  </li>
+
+																					  <li class="list-group-item list-group-item-info">
+																					  	Plantillas
+																					  	<label style=" margin-bottom: 30px" class="checkbox-inline">
+																						  <input style="right:35px;"  type="checkbox" id="exis_temfile" name="exis_temfile" >
+																						</label>
+																					  </li>
+																					  
+																					  <li class="list-group-item list-group-item-info">
+																					   Paquete de modelos
+																					   	<label style=" margin-bottom: 30px" class="checkbox-inline">
+																						  <input style="right:35px;" type="checkbox" id="exis_ppklfile" value="option1"> 
+																						</label>
+																					  </li>
+
+																					  <li class="list-group-item list-group-item-info">
+																					  	Lista de identificadores de Estado
+																					  	<label style=" margin-bottom: 30px" class="checkbox-inline">
+																						  <input style="right:35px;"  type="checkbox" id="id_state_create" name="id_state_create" value="option1">
+																						</label>
+																					  
+																					  </li>
+																			  </div>
+																			</div>
+																		</div>
+																		<div class="col-md-6" style="margin-top: 38px;">
+																			<div class="col-md-9">
+																				<label for="lltemplates_lab">
+																				Lista de Identificadores estados
+																				</label>
+																			    <select name="lltemplates_selec" id="lltemplates_selec" class="form-control lltemplates" style="margin-top: 10px;">
+																				    <option selected="true" disabled>
+																				    Clave
+																				    </option>
+																				</select>
+																			</div>
+																			<div class="col-md-12" style="margin-top: 19px; left: 2px;	">	
+																				<button class="btn btn-primary" type="button" data-toggle="collapse" data-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
+																				 Edicion
+																					</button>
+																				
+																				<div class="collapse col-md-12" id="collapseExample" >
+																					<div  style="left: 1px;"
+																					    <div class="col-md-12">
+																								<label for="clave_tree_edi_lab">Nombre Estado</label>
+															    			          	    <input style="margin-top: 10px;" id="state_id" name="state_id" type="text" placeholder="Ingrese un nombre" class="form-control n_tree_edi">
+																								    
+																					    </div>
+																					    <div class="col-md-12" style="margin-top: 15px;">
+																					   		<div class="btn-group" role="group">
+																							    <button data-toggle="tooltip" title="almacena el contenido" name="add_clave_tree_state" id='add_clave_tree_state' type="button" class="btn-success btn newfile">Agregar
+																							    </button>
+																							</div>
+
+																							<div class="btn-group" role="group">
+																							    <button data-toggle="tooltip" title="almacena el contenido" name="edit_clave_tree_state" id='edit_clave_tree_state' type="button" class="btn btn-warning newfile">Editar
+																							    </button>
+																							</div>
+
+																							<div class="btn-group" role="group">
+																							    <button data-toggle="tooltip" title="almacena el contenido" name="delete_clave_tree_state" id='delete_clave_tree_state' type="button" class="btn btn-danger newfile">Eliminar
+																							    </button>
+																							</div>
+																					  	</div>
+																					</div>
+																				</div>
+																			</div>
+																		</div>
+															        </div>
+																</div>
+																	  
+															</div>
+												    	</div>
+												    </div>
+										      </div>
+										    </div>
+									    </div>
+
+
+										<div class="panel panel-default">
+										    <div class="panel-heading" role="tab" id="headingTwo">
+										      <h4 class="panel-title">
+
+										        <a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+										          Edicion Arbol	
+										        </a>
+										      </h4>
+										    </div>
+										    <div id="collapseTwo" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingTwo">
+											    <div class="panel-body">
+											        <div class="row">
+											      		<div class="col-md-6">
+											      			<div class="col-md-12" style="right: 30px;">
+											      				<div class="col-md-12">
+												      				<div class="col-md-3" style="margin-top: 10px; left: 30px;">
+													      				<label for="">
+													      						Estado Inicial
+													      				</label>
+													      			</div>
+													      			<div class="col-md-3" style="margin-top: 7px;">
+													      				<input type="text" placeholder="S0" class="form-control e_i" name="est_init" id="est_init" disabled="True">
+													      			</div>
+												      				<div class="col-md-6">
+													      			    <select  name="state_init_selec" id="state_init_selec" class="form-control initclstate" style="left: 30px; margin-top: 10px;"  onchange="sendStateSelect_init(this.value)">
+																		    <option value="0">
+																		    Seleccion 
+																		    </option>
+																		</select>
+																	</div>
+											      			    </div>
+											      			    <div class="col-md-12">
+												      			    <div class="col-md-3" style="margin-top: 10px; left: 
+												      			    30px;">
+												      					<label for="state_end_lab">
+												      						Estado Final
+												      					</label>
+												      				</div>
+												      				<div class="col-md-3" style="margin-top: 6px;">
+													      					<input type="text" placeholder="S0E" class="form-control e_i" name="est_end" id="est_end" disabled="True">
+													      			</div>
+
+												      				<div class="col-md-6">
+												      					  <select name="state_end_selec" id="state_end_selec" class="form-control lltemplates" style="margin-top: 10px;"
+												      					   onchange="sendStateSelect_end(this.value);">
+																				    <option value="0">
+																				    Seleccion 
+																				    </option>
+																			</select>
+												      				</div>
+												      			</div>
+												      			<div class="col-md-12" style="margin-top: 5px;">
+												      				<div class="col-md-3" style=" left: 
+												      			    30px;">
+												      					<label for="">
+												      						Intentos  Maximos
+												      					</label>
+												      				</div>
+												      				<div class="col-md-3" style="	margin-top: 4px;">
+													      					<input type="number" placeholder="0" class="form-control e_i" name="try_max" id="try_max" disabled="True">
+													      			</div>
+												      			</div>
+											      			</div>
+
+											      				<div class="col-md-12" style="margin-top: 15px;">
+											      					<div class="jumbotron">
+											      					<div class="panel panel-default" style="margin-top: -30px;" 	>
+																		  <div class="panel-heading" role="tab" id="heading_topic">
+																		    <h4 class="panel-title">
+																		      <a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseTwo_topic" aria-expanded="false" aria-controls="collapseTwo_topic">
+																		        Manejo de temas
+																		      </a>
+																		    </h4>
+																		  </div>
+																		  <div id="collapseTwo_topic" class="panel-collapse collapse" role="tabpanel" aria-labelledby="heading_topic">
+																		    <div class="panel-body">
+																		      <div class="row">
+																		        <div class="col-md-12">
+																		          <div class="col-md-12" style="right: 15px;">
+																		            <label for="state_end_lab">
+																		              Normal
+																		            </label>
+																		            <select name="topic_normal" id="topic_normal" class="form-control " style="">
+																		              <option selected="true" disabled>
+																		              Clave
+																		              </option>
+																		            </select>
+																		          </div>
+
+																		          <div class="col-md-12" style="right: 15px;">
+																		            <label for="state_end_lab">
+																		              Ninguno
+																		            </label>
+																		            <select name="topic_none" id="topic_none" class="form-control " style="">
+																		              <option selected="true" disabled>
+																		              Clave
+																		              </option>
+																		            </select>
+																		          </div>
+																		          <div class="col-md-12">
+																		            <div style="right: 15px; margin-top: 17px;" class="input-group input-group-sm">
+																					  <span class="input-group-addon" id="sizing-addon3">Normal</span>
+																					  <input type="text" id="list_topic_normal" name="list_topic_normal" class="form-control" placeholder="" aria-describedby="sizing-addon3" disabled="True">
+																					</div>
+																					<div style="right: 15px; margin-top: 17px;" class="input-group input-group-sm">
+																					  <span class="input-group-addon" id="sizing-addon3">Ninguno</span>
+																					  <input name="list_topic_none" id="list_topic_none" type="text" class="form-control" placeholder="" aria-describedby="sizing-addon3" disabled="True">
+																					</div>
+																					
+																					<div style="margin-top: 17px;">
+																						<div class="btn-group" role="group">
+																						    <button name="add_Topic" id='add_Topic' type="button" class="btn-success btn newfile">Agregar
+																						    </button>
+																						</div>
+
+																						<div class="btn-group" role="group" style="right: 16px; margin-top: 8px; ">
+																							<div class="col-md-5" >    
+																							    <button  name="delete_Topic" id='delete_Topic' type="button" class="btn-warning btn newfile">Eliminar
+																							    </button>
+																						    </div>
+
+																						    <div class="col-md-7">
+																							    <select class="form-control">
+																								 <option value="0">
+																								    Seleccion 
+																							     </option>
+																								</select>
+																							</div>
+																						</div>
+																					</div>
+
+																		          </div>
+																		        </div>
+																		      </div>
+																		    </div>
+																		  </div>
+																		</div>
+
+
+
+											      					<div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
+																		<div class="panel panel-default">
+																		<div class="panel-heading" role="tab" id="subheadingOne">
+																		  <h4 class="panel-title">
+																		    <a role="button" data-toggle="collapse" data-parent="#accordion" href="#subcollapseOne" aria-expanded="true" aria-controls="subcollapseOne">
+																		    Creacion de modelo  
+																		    </a>
+																		  </h4>
+																		</div>
+																		<div id="subcollapseOne" class="panel-collapse collapse" role="tabpanel" aria-labelledby="subheadingOne">
+																		  <div class="panel-body">
+																		    <div class="row">
+																		    	<div class="col-md-12">
+																		    		<div class="col-md-12">
+																	      				<div class="col-md-12" style="right: 15px;">
+																	      					<label for="">
+																	      						Id Modelo
+																	      					</label>
+																	      						 <select onchange="loadkey_2(this.value)" name="lis_models_make_model" id="lis_models_make_model" class="form-control " style="">
+																							    <option selected="true" disabled>
+																							    Clave
+																							    </option>
+																							</select>
+																		      			</div>
+
+																		      			<div class="col-md-12" style="right: 15px;">
+																	      					<label for="">
+																	      						Estado
+																	      					</label>
+																	      				    <select name="state_model" id="state_model" class="form-control state_model" style="">
+																							    <option selected="true" disabled>
+																							    Clave
+																							    </option>
+																							</select>
+																		      			</div>
+
+																		      			<div style="margin-top: 17px;">
+																						<div class="btn-group" role="group">
+																						    <button name="add_model_item" id='add_model_item' type="button" class="btn-success btn newfile">Agregar
+																						    </button>
+																						</div>
+
+																						<div class="btn-group" role="group" style="right: 16px; margin-top: 8px; ">
+																							<div class="col-md-5" >    
+																							    <button  name="delete_model_item" id='delete_model_item' type="button" class="btn-warning btn newfile">Eliminar
+																							    </button>
+																						    </div>
+
+																						    <div class="col-md-7">
+																							    <select class="form-control">
+																								 <option value="0">
+																								    Seleccion 
+																							     </option>
+																								</select>
+																							</div>
+																						</div>
+																					</div>
+
+																		      			<div id='div_tbl' class="col-md-12" style="margin-top: 20px; right: 20px;">
+																		      				<table class="table" id="tbl_statemodel" name="tbl_statemodel" > 
+																			      				
+																			      			</table>
+																		      			</div>
+																	      			</div>
+																		    	</div>
+																		    </div>
+																		  </div>
+																		</div>
+																		</div>
+
+																		<div class="panel panel-default">
+																		<div class="panel-heading" role="tab" id="headingTwo">
+																		  <h4 class="panel-title">
+																		    <a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="#subcollapseTwo" aria-expanded="false" aria-controls="subcollapseTwo">
+																		      Creacion de Platillas
+																		    </a>
+																		  </h4>
+																		</div>
+																		<div id="subcollapseTwo" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingTwo">
+																		  <div class="panel-body">
+																		     <div class="row">
+																		    	<div class="col-md-12">
+																		    		<div class="col-md-12">
+																	      				<div class="col-md-12" style="right: 15px;">
+																	      					<label for="state_end_lab">
+																	      						Id Modelo
+																	      					</label>
+																	      						 <select name="lis_models_make_label" id="lis_models_make_label" class="form-control " style="">
+																							    <option selected="true" disabled>
+																							    Clave
+																							    </option>
+																							</select>
+																		      			</div>
+																		      			<div class="col-md-12" style="right: 15px;">
+																	      					<label for="state_end_lab">
+																	      						Plantilla
+																	      					</label>
+																	      				    <select name="lis_label_make_label" id="lis_label_make_label" class="form-control " style="">
+																							    <option selected="true" disabled>
+																							    Clave
+																							    </option>
+																							</select>
+																		      			</div>
+																		      			<div class="col-md-12" style="right: 15px;">
+																	      					<label for="">
+																	      						Estado
+																	      					</label>
+																	      				    <select name="state_label" id="state_label" class="form-control " style="">
+																							    <option selected="true" disabled>
+																							    Clave
+																							    </option>
+																							</select>
+																		      			</div>
+																		      			<div class="col-md-12" style="right: 15px;">
+																	      					<label for="">
+																	      						Tema
+																	      					</label>
+																	      				    <select name="topic_list" id="topic_list" class="form-control " style="">
+																							    <option selected="true" disabled>
+																							    Clave
+																							    </option>
+																							</select>
+																		      			</div>
+																		      			<div class="col-md-12" style="margin-top: 10px; right: 20px;">
+																		      				<div style="margin-top: 17px;">
+																						<div class="btn-group" role="group">
+																						    <button name="add_template_item" id='add_template_item' type="button" class="btn-success btn newfile">Agregar
+																						    </button>
+																						</div>
+
+																						<div class="btn-group" role="group" style="right: 16px; margin-top: 8px; ">
+																							<div class="col-md-5" >    
+																							    <button  name="delete_template_item" id='delete_template_item' type="button" class="btn-warning btn newfile">Eliminar
+																							    </button>
+																						    </div>
+
+																						    <div class="col-md-7">
+																							    <select class="form-control">
+																								 <option value="0">
+																								    Seleccion 
+																							     </option>
+																								</select>
+																							</div>
+																						</div>
+																					</div>
+
+																		      			</div>
+																		      			<div id='div_tbl' class="col-md-12" style="margin-top: 20px; right: 20px;">
+																		      				<table id="tbl_data_temp" name="tbl_data_temp" class="table"> 
+																			      			</table>
+																		      			</div>
+																	      			</div>
+																		    	</div>
+																		    </div>
+																		  </div>
+																		</div>
+																		</div>
+																		<div class="panel panel-default">
+																		<div class="panel-heading" role="tab" id="headingThree">
+																		  <h4 class="panel-title">
+																		    <a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="#subcollapseThree" aria-expanded="false" aria-controls="subcollapseThree">
+																		      Creacion de Transiciones
+																		    </a>
+																		  </h4>
+																		</div>
+																		<div id="subcollapseThree" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingThree">
+																		  <div class="panel-body">
+																		    <div class="row">
+																		    	<div class="col-md-12">
+																		    		<div class="col-md-12">
+																	      				<div class="col-md-12" style="right: 15px;">
+																	      					<label for="">
+																	      						Estado inicial
+																	      					</label>
+																	      						 <select name="state_trans" id="state_trans" class="form-control state_trans" style="">
+																							    <option selected="true" disabled>
+																							    Clave
+																							    </option>
+																							</select>
+																		      			</div>
+																		      			<div class="col-md-12" style="right: 15px;">
+																	      					<label for="">
+																	      						Es Forzado
+																	      					</label>
+																	      						 <select name="bool_force" id="bool_force" class="form-control " style="">
+																							    <option selected="true" disabled>
+																							    Clave
+																							    </option>
+																							    <option>
+																							    True
+																							    </option>
+																							    <option>
+																							    False
+																							    </option>
+																							</select>
+																		      			</div>
+																		      		</div>
+																		    	</div>
+																		    	<div class="col-md-12" style="left: 15px;">
+																		    		<div class="col-md-12" style="right: 29px;">
+																		      			    <div class="col-md-6">
+																		      			    	<label for="">
+																		      						Modelo
+																		      					</label>
+																		      						 <select name="lis_label_model_model_trans" id="lis_label_model_model_trans" class="form-control "
+																		      						 onChange="loadkey(this.value);"
+																		      						 >
+																								    <option selected="true" disabled>
+																								    Clave
+																								    </option>
+																								</select>
+																		      			    </div>
+																		      			    <div class="col-md-6">
+																		      			    	<label for="">
+																		      						Etiqueta
+																		      					</label>
+																		      						 <select name="lis_label_make_trans" id="lis_label_make_trans" class="form-control " style="">
+																								    <option selected="true" disabled>
+																								    Clave
+																								    </option>
+																								</select>
+																		      			    </div>
+																		      					
+																		      			</div>
+																		      			<div class="col-md-11" style="right: 15px;">
+																	      					<label for="">
+																	      						Estado Final
+																	      					</label>
+																	      						 <select name="state_trans_ed" id="state_trans_ed" class="form-control " style="">
+																							    <option selected="true" disabled>
+																							    Clave
+																							    </option>
+																							</select>
+																		      			</div>
+																		      			<div class="col-md-5" style="margin-top: 7px; right: 16px;"> 
+																		      					<button name="add_transition_item" id='add_transition_item' type="button" class="btn-success btn newfile">Agregar
+																							    </button>
+																						    </div>
+																		      			<div class="btn-group" role="group" style="right: 16px; margin-top: 8px; ">
+																								<div class="btn-group col-md-5" role="group">   
+																							    <button  name="delete_transition_item" id='delete_transition_item' type="button" class="btn-warning btn newfile">Eliminar
+																							    </button>
+																							    
+																						   </div>
+																							<div class="col-md-7">
+																							    <select class="form-control">
+																								 <option value="0">
+																								    Seleccion 
+																							     </option>
+																								</select>
+																							</div>
+																						</div>
+																		      			<div id='div_tbl' class="col-md-12" style="margin-top: 20px; right: 20px;">
+																		      				<table id="tbl_data_trasitions" name="tbl_data_trasitions" class="table"> 
+																			      				
+																			      			</table>
+																		      			</div>
+																		    	</div>
+																		    </div>
+																		  </div>
+																		</div>
+																		</div>
+																	</div>
+											      				</div>
+											      			</div>
+											      		</div>
+											      		<div class="col-md-6">
+											      			<div class="row">
+															  <div class="col-sm-12 col-md-8">
+															    <div class="thumbnail">
+															      <div id="id_img" name="id_img"></div>
+															      <img id="igm_model" name="igm_model" >
+															      
+															      <div class="caption">
+															        <h2>Vista Previa</h2>
+															        <p></p>
+															        <p><a href="#" class="btn btn-primary" role="button">Descargar</a> </p>
+															      </div>
+															    </div>
+															  </div>
+															</div>
+											      		</div>
+											        </div>		
+											    </div>
+										    </div>
+									    </div>
+
+									  <div class="panel panel-default">
+									    <div class="panel-heading" role="tab" id="headingThree">
+									      <h4 class="panel-title">
+									        <a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
+									          Generar Arbol
+									        </a>
+									      </h4>
+									    </div>
+									    <div id="collapseThree" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingThree">
+									      <div class="panel-body">
+									        <div class="row">
+									        	<div class="col-md-12">
+									        		<div class="jumbotron">
+									        		    <div class="col-md-12 space_into_panel" style="left: 330px; margin-top: -20px;">
+									        		       <button type="button" class="btn btn-primary btn-lg">Descargar Archivo</button>	
+									        		    </div>
+									        			
+									        		</div>
+									        	</div>									        	
+									        </div>
+									      </div>
+									    </div>
+									  </div>
+									</div>
+	 					       </div>
+	 					    </div>
+					    </fieldset>
+	 				</form>
+						
+	 				</div>   		
+    		</div>
+    	</div>
+    </div>
+</body>
+</html>

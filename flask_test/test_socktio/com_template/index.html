@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>test_socketIO_chat</title>
+	
+	<link rel="shortcut icon" href="{{url_for('static',filename='img/msj_icon.png')}}">
+
+	<link rel="stylesheet" type="text/css" href="{{url_for('static',filename='css/bootstrap.css')}}">
+	
+	<link rel="stylesheet" type="text/css" href="{{url_for('static',filename='css/main.css')}}">
+
+	<script type="text/javascript" src="{{url_for('static',filename='js/bootstrap.js')}}"></script>
+	<!--socketIO -->
+	<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.1.1/socket.io.js"></script>
+	<!-- jquery-->
+	<script src="http://code.jquery.com/jquery-3.3.1.min.js"  integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="  crossorigin="anonymous"></script>
+
+	<script type="text/javascript" src="{{url_for('static',filename='js/rc_ac.js')}}"></script>
+	
+</head>
+<body>
+	<dir class="container">
+	<h2>Ejemplo chat</h2>
+		<div class="border-top">
+			<div class="card-body">
+				<ul id="message" class="list-group" data-spy="scroll" >
+					
+				</ul>
+			</div>
+			<div class="input-group">
+			  <div class="input-group-prepend">
+			    <span class="input-group-text">Mensaje</span>
+			  </div>
+			  <textarea class="form-control" id="myMessage" name="myMessageN" aria-label="Mensaje"></textarea>
+			</div>
+			<div >
+			  <button style="margin-top: 15px;" type="button" class="btn btn-success" id="send">Enviar</button>
+			</div>
+		</div>
+	</dir>
+</body>
+</html>

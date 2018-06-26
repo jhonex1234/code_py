@@ -1,0 +1,5 @@
+28/02/2018 12:58:58 PM 	Traceback (most recent call last):
+			  File "main_modulo.py", line 28, in main
+			    assert type(args['namedoc']) is str, 'message deberia ser de tipo string'
+			TypeError: list indices must be integers, not str
+			

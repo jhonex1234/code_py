@@ -1,0 +1,7 @@
+[system]
+database = ai_agent_memory.sql
+trained_package = trained_package_prueba.pkl
+templates_file = templates_prueba.json
+spelling_dict = spelling_dict.pkl
+state_machine_config = tree_dialog_config_prueba.json
+error_file = error.log

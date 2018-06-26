@@ -1,0 +1,112 @@
+{
+"max_attempts": 1,
+"initial_state": "s1",
+"final_state": "s8",
+"models": [
+    {"id": "saludo", "state": "s1"},
+    {"id": "principal", "state": "s3"},
+    {"id": "costo_procedimiento", "state": "s6"},
+    {"id": "costo_fusion", "state": "s7"},
+    {"id": "costo_procedimiento", "state": "s4"},
+    {"id": "inscripcion", "state": "s5"},
+    {"id": "temas_renovacion", "state": "s9"},
+    {"id": "tipo_renovacion", "state": "s10"},
+    {"id": "despedida", "state": "s8"}
+],
+"transitions": [
+    {"label": "positivo", "starting_state": "s1", "ending_state": "s3", "is_forced": false},
+    {"label": "negativo", "starting_state": "s1", "ending_state": "s3", "is_forced": true, "proba_thresh": 0},
+
+    {"label": "fusion", "starting_state": "s3", "ending_state": "s6", "is_forced": true, "proba_thresh": 35},
+    {"label": "inscripcion", "starting_state": "s3", "ending_state": "s4", "is_forced": true, "proba_thresh": 35},
+    {"label": "renovacion", "starting_state": "s3", "ending_state": "s9", "is_forced": true, "proba_thresh": 28},
+    {"label": "acceso", "starting_state": "s3", "ending_state": "s8", "is_forced": false},
+    {"label": "certificado", "starting_state": "s3", "ending_state": "s8", "is_forced": false},
+    {"label": "normas niif", "starting_state": "s3", "ending_state": "s8", "is_forced": false},
+    {"label": "otro", "starting_state": "s3", "ending_state": "s3", "is_forced": false},
+
+    {"label": "costo", "starting_state": "s6", "ending_state": "s7", "is_forced": false},
+    {"label": "procedimiento", "starting_state": "s6", "ending_state": "s8", "is_forced": false},
+    {"label": "otro", "starting_state": "s6", "ending_state": "s6", "is_forced": false},
+
+    {"label": "cuantia indeterminada", "starting_state": "s7", "ending_state": "s8", "is_forced": false},
+    {"label": "aumento capital", "starting_state": "s7", "ending_state": "s8", "is_forced": false},
+    {"label": "aporte inmuebles", "starting_state": "s7", "ending_state": "s8", "is_forced": false},
+    {"label": "otro", "starting_state": "s7", "ending_state": "s7", "is_forced": false},
+
+    {"label": "costo", "starting_state": "s4", "ending_state": "s5", "is_forced": true, "proba_thresh": 50},
+    {"label": "procedimiento", "starting_state": "s4", "ending_state": "s5", "is_forced": true, "proba_thresh": 50},
+    {"label": "otro", "starting_state": "s4", "ending_state": "s4", "is_forced": false},
+
+    {"label": "primera vez", "starting_state": "s5", "ending_state": "s8", "is_forced": false},
+    {"label": "continuidad", "starting_state": "s5", "ending_state": "s8", "is_forced": false},
+    {"label": "perdida", "starting_state": "s5", "ending_state": "s8", "is_forced": false},
+    {"label": "otro", "starting_state": "s5", "ending_state": "s5", "is_forced": false},
+
+    {"label": "plazos", "starting_state": "s9", "ending_state": "s8", "is_forced": false},
+    {"label": "pagos", "starting_state": "s9", "ending_state": "s10", "is_forced": true, "proba_thresh": 30},
+    {"label": "procedimiento", "starting_state": "s9", "ending_state": "s10", "is_forced": true, "proba_thresh": 30},
+    {"label": "otro", "starting_state": "s9", "ending_state": "s9", "is_forced": false},
+
+    {"label": "virtual", "starting_state": "s10", "ending_state": "s8", "is_forced": false},
+    {"label": "fisico", "starting_state": "s10", "ending_state": "s8", "is_forced": false},
+    {"label": "otro", "starting_state": "s10", "ending_state": "s10", "is_forced": false},
+
+    {"label": "positivo", "starting_state": "s8", "ending_state": "s3", "is_forced": true, "proba_thresh": 0},
+    {"label": "negativo", "starting_state": "s8", "ending_state": "s1", "is_forced": false}
+],
+"topics": {
+    "normal": ["s3", "s4", "s9"],
+    "none": ["s1", "s8"]
+},
+"templates": [
+    {"id": "agente", "state": "none", "label": "agente", "topic": "none"},
+    {"id": "saludo2", "state": "s1", "label": "positivo", "topic": "none"},
+    {"id": "vacio", "state": "s1", "label": "negativo", "topic": "none"},
+
+    {"id": "costo_proced_fusion", "state": "s3", "label": "fusion", "topic": "fusion"},
+    {"id": "costo_proced_inscripcion", "state": "s3", "label": "inscripcion", "topic": "inscripcion"},
+    {"id": "tema_renovacion", "state": "s3", "label": "renovacion", "topic": "renovacion"},
+    {"id": "acceso", "state": "s3", "label": "acceso", "topic": "acceso"},
+    {"id": "certificado", "state": "s3", "label": "certificado", "topic": "certificado"},
+    {"id": "normas niif", "state": "s3", "label": "normas niif", "topic": "normas niif"},
+    {"id": "reintento_principal", "state": "s3", "label": "otro", "topic": "otro"},
+
+    {"id": "tipo_costo_fusion", "state": "s6", "label": "costo", "topic": "fusion"},
+    {"id": "procedimiento_fusion", "state": "s6", "label": "procedimiento", "topic": "fusion"},
+    {"id": "reintento_costo_proced_fusion", "state": "s6", "label": "otro", "topic": "fusion"},
+
+    {"id": "aumento_capital", "state": "s7", "label": "aumento capital", "topic": "fusion"},
+    {"id": "cuantia_indeterminada", "state": "s7", "label": "cuantia indeterminada", "topic": "fusion"},
+    {"id": "aporte_inmuebles", "state": "s7", "label": "aporte inmuebles", "topic": "fusion"},
+    {"id": "reintento_tipo_costo_fusion", "state": "s7", "label": "otro", "topic": "fusion"},
+
+    {"id": "tipo_inscripcion", "state": "s4", "label": "costo", "topic": "costo"},
+    {"id": "tipo_inscripcion", "state": "s4", "label": "procedimiento", "topic": "procedimiento"},
+    {"id": "reintento_costo_proced_inscripcion", "state": "s4", "label": "otro", "topic": "otro"},
+
+    {"id": "costo_inscripcion", "state": "s5", "label": "primera vez", "topic": "costo"},
+    {"id": "costo_inscripcion", "state": "s5", "label": "continuidad", "topic": "costo"},
+    {"id": "costo_inscripcion", "state": "s5", "label": "perdida", "topic": "costo"},
+    {"id": "procedimiento_primera_vez", "state": "s5", "label": "primera vez", "topic": "procedimiento"},
+    {"id": "procedimiento_continuidad", "state": "s5", "label": "continuidad", "topic": "procedimiento"},
+    {"id": "procedimiento_perdida", "state": "s5", "label": "perdida", "topic": "procedimiento"},
+    {"id": "reintento_tipo_inscripcion", "state": "s5", "label": "otro", "topic": "costo"},
+    {"id": "reintento_tipo_inscripcion", "state": "s5", "label": "otro", "topic": "procedimiento"},
+
+    {"id": "plazos_renovacion", "state": "s9", "label": "plazos", "topic": "plazos"},
+    {"id": "tipo_renovacion", "state": "s9", "label": "pagos", "topic": "pagos"},
+    {"id": "tipo_renovacion", "state": "s9", "label": "procedimiento", "topic": "procedimiento"},
+    {"id": "reintento_tema_renovacion", "state": "s9", "label": "otro", "topic": "otro"},
+
+    {"id": "pagos_renovacion", "state": "s10", "label": "virtual", "topic": "pagos"},
+    {"id": "procedimiento_renovacion", "state": "s10", "label": "fisico", "topic": "pagos"},
+    {"id": "pagos_renovacion", "state": "s10", "label": "virtual", "topic": "procedimiento"},
+    {"id": "procedimiento_renovacion", "state": "s10", "label": "fisico", "topic": "procedimiento"},
+    {"id": "reintento_tipo_renovacion", "state": "s10", "label": "otro", "topic": "pagos"},
+    {"id": "reintento_tipo_renovacion", "state": "s10", "label": "otro", "topic": "procedimiento"},
+
+    {"id": "vacio", "state": "s8", "label": "positivo", "topic": "none"},
+    {"id": "despedida", "state": "s8", "label": "negativo", "topic": "none"}
+]
+}
